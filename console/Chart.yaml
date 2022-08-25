@@ -8,12 +8,12 @@ dependencies:
     version: 6.2.2
     repository: https://oauth2-proxy.github.io/manifests
     alias: oauth2-proxy
-    condition: oauth2Proxy.enabled
+    condition: oauth2-proxy.enabled
   - name: jwt-decode-auth
     version: 1.0.0
     repository: file://charts/jwt-decode-auth
     alias: jwt-decode-auth
-    condition: jwtDecodeAuth.enabled
+    condition: jwt-decode-auth.enabled
 sources:
   - https://github.com/tmax-cloud/console
 version: 0.2.0

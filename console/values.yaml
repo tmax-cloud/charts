@@ -1,7 +1,8 @@
 
 
 
-
 oauth2-proxy:
+  enabled: true
 
 jwt-decode-auth:
+  enabled: true

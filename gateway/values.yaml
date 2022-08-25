@@ -1,6 +1,4 @@
 tls:
-  rootCA:
-    enabled: true
   domain: tmaxcloud.test
   acme:
     enabled: false
@@ -17,8 +15,8 @@ tls:
 
 ## crd 선행 설치
 ## kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.9.1/cert-manager.crds.yaml
-cert-manager:
-  enabled: true
+certmanager:
+  enabled: false
   fullnameOverride: cert-manager
   extraArgs:
     - "--dns01-recursive-nameservers=8.8.8.8:53"
