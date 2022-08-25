@@ -1,15 +1,15 @@
 tls:
-  domain: tmaxcloud.test
+  domain: tmaxcloud.org
   acme:
     enabled: false
-    email: email
+    email: @@email@@
     dns:
       type: route53
-      accessKeyID: accesskey
-      accessKeySecret: secretkey
-      hostedZoneID: Z07854445SLZAKEQ0V9P
+      accessKeyID: @@accessKeyID@@
+      accessKeySecret: @@accessKeySecret@@
+      hostedZoneID: @@HostZoneID@@
+    # staging or production
     environment: production
-  #    domain: tmaxcloud.test
   selfsigned:
     enabled: true
 
