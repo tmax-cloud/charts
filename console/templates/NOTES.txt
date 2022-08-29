@@ -1,10 +1,7 @@
 1. Get the application URL by running these commands:
-{{- if .Values.console.ingressroute.enabled }}
-  {{- if .Values.console.ingressroute.domain.enabled }}
-  echo https://{{include "console.fullname" .}}.{{.Values.console.ingressroute.domain.host }}
-  {{- else if .Values.console.ingressroute.ip.enabled }}
-  export TRAEFIK_IP=$(kubectl get service -n api-gateway-system -o jsonpath="{.items[0].status.loadBalancer.ingress[0].ip}")
-  echo https://{{ include "console.fullname" . }}.$TRAEFIK_IP.nip.io
+{{- if .Values.ingressroute.enabled }}
+  {{- if .Values.global.domain }}
+  echo https://{{ .Values.global.consoleDomain }}.{{.Values.global.domain }}
   {{- else }}
   export TRAEFIK_IP=$(kubectl get service -n api-gateway-system -o jsonpath="{.items[0].status.loadBalancer.ingress[0].ip}")
   echo https://$TRAEFIK_IP

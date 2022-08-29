@@ -32,7 +32,7 @@ config:
   # Default configuration, to be overridden
   redirectUrl: "https://console-js.tmaxcloud.org/oauth2/callback"
   # hyperauth: {}
-  hyperauth:
+  hyperAuth:
     address: hyperauth.tmaxcloud.org
     realm: tmax
 #  configFile:
@@ -86,8 +86,8 @@ image:
   # Optionally specify an array of imagePullSecrets.
   # Secrets must be manually created in the namespace.
   # ref: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
-  # imagePullSecrets:
-  # - name: myRegistryKeySecretName
+  imagePullSecrets: []
+#  - name: myRegistryKeySecretName
 
 # -- Custom labels to add into metadata
 customLabels: {}
@@ -139,7 +139,6 @@ serviceAccount:
 
 ingressroute:
   enabled: true
-  host: tmaxcloud.org
 
 ingress:
   enabled: false
@@ -182,11 +181,26 @@ hostAlias:
 
 # Affinity for pod assignment
 # Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
-# affinity: {}
+#affinity: {}
+affinity:
+  podAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - podAffinityTerm:
+          topologyKey: kubernetes.io/hostname
+          labelSelector:
+            matchExpressions:
+              - key: app
+                operator: In
+                values:
+                  - traefik
+        weight: 100
 
 # Tolerations for pod assignment
 # Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
-tolerations: []
+#tolerations: []
+tolerations:
+  - key: "node-role.kubernetes.io/master"
+    operator: Exists
 
 # Node labels for pod assignment
 # Ref: https://kubernetes.io/docs/user-guide/node-selection/

@@ -5,5 +5,5 @@ dependencies:
 - name: jwt-decode-auth
   repository: file://charts/jwt-decode-auth
   version: 1.0.0
-digest: sha256:53cd31d129afb3dede4ef38dd00fe05d15a207433d88adeaf7d1b72a09c6942e
-generated: "2022-08-29T14:03:35.169374+09:00"
+digest: sha256:e9f1839ff14cc63ac458e6b258eb850e9987b3f73b8de68ed797131ad6e6e854
+generated: "2022-08-29T16:16:00.460489+09:00"

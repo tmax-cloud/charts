@@ -34,11 +34,13 @@ spec:
             - --public-dir=/opt/bridge/static
             - --listen=http://0.0.0.0:31303
             - --base-address=http://0.0.0.0:31303
+            {{- with .Values.global }}
+            - --keycloak-realm={{ .hyperAuth.realm }}
+            - --keycloak-auth-url=https://{{ .hyperAuth.address }}/auth
+            {{- end }}
             {{- with .Values.console }}
-            - --keycloak-realm={{ .auth.realm }}
-            - --keycloak-auth-url=https://{{ .auth.hyperAuth }}/auth
-            - --keycloak-client-id={{ .auth.clientId }}
-            - --mc-mode={{ .mcMode }}
+            - --keycloak-client-id={{ .clientID }}
+            - --mc-mode={{ .mcMode | default true }}
             - --app.chatbotEmbed={{ .chatbotEmbed | default true }}
             - --logInfo.logLevel={{ .logInfo.logLevel | default "debug" }}
             - --logInfo.logType={{ .logInfo.logType | default "pretty" }}

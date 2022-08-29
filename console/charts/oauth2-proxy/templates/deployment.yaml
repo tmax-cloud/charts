@@ -62,16 +62,14 @@ spec:
           - --metrics-address=0.0.0.0:44180
         {{- end }}
         {{- end }}
-        {{- if .Values.config.cookieName }}
-          - --cookie-name={{ .Values.config.cookieName }}
+        {{- if .Values.global.domain }}
+          - --cookie-name={{ .Values.global.domain }}
         {{- end }}
-        {{- with .Values.config.hyperauth }}
+        {{- with .Values.global.hyperAuth }}
           - --provider=keycloak-oidc
           - --oidc-issuer-url=https://{{ .address }}/auth/realms/{{ .realm }}
         {{- end }}
-        {{- if .Values.config.redirectUrl }}
-          - --redirect-url={{ .Values.config.redirectUrl }}
-        {{- end }}
+          - --redirect-url=https://{{ .Values.global.consoleDomain }}.{{ .Values.global.domain }}/oauth2/callback
         {{- range $key, $value := .Values.extraArgs }}
           {{- if $value }}
           - --{{ $key }}={{ $value }}

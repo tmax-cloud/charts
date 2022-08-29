@@ -39,7 +39,11 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           env:
             - name: JWKS_URL
-              value: "https://{{ .Values.hyperauth.address }}/auth/realms/{{ .Values.hyperauth.realm }}/protocol/openid-connect/certs"
+            {{- if .Values.global.hyperAuth }}
+              value: "https://{{ .Values.global.hyperAuth.address }}/auth/realms/{{ .Values.global.hyperAuth.realm }}/protocol/openid-connect/certs"
+            {{- else }}
+              value: "https://{{ .Values.hyperauth.address }}/auth/realms/{{ .Values.hyperAuth.realm }}/protocol/openid-connect/certs"
+            {{- end }}
             - name: AUTH_HEADER_KEY
               value: Authorization
             - name: CACHE_ENABLED
