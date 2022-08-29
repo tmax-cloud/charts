@@ -1,4 +1,61 @@
 
+nameOverride: "console"
+fullnameOverride: "console"
+console:
+  auth:
+    hyperauth: hyperauth.org
+    realm: tmax
+    clientid: hypercloud5
+  mcMode: false
+  chatbotEmbed: false
+  logInfo:
+    logLevel: debug
+    logType: pretty
+
+serviceAccount:
+  create: true
+service:
+  type: ClusterIP
+  port: 31303
+replicaCount: 1
+image:
+  repository: docker.io/tmaxcloudck/hypercloud-console
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "5.0.76.0"
+imagePullSecrets: {}
+#  - name: regcred
+podAnnotations: {}
+podSecurityContext: {}
+securityContext: {}
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+#   memory: 128Mi
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+ingressroute:
+  enabled: true
+  domain:
+    enabled: false
+    name: tmaxcloud.org
+  ip:
+    enabled: true
 
 
 oauth2-proxy:

@@ -44,6 +44,9 @@ spec:
             - --keycloak-auth-url=https://{{ .auth.hyperauth }}/auth
             - --keycloak-client-id={{ .auth.clientid }}
             - --mc-mode={{ .mcMode }}
+            - --app.chatbotEmbed={{ .chatbotEmbed | default true }}
+            - --logInfo.logLevel={{ .logInfo.logLevel | default "debug" }}
+            - --logInfo.logType={{ .logInfo.logType | default "pretty" }}
             {{- end }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
