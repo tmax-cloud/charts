@@ -10,5 +10,5 @@ roleRef:
   name: {{ include "console.fullname" . }}
 subjects:
   - kind: ServiceAccount
-    name: {{ include "console.serviceAccountName" . }}
+    name: {{ .Values.global.serviceAccount }}
     namespace: {{ .Release.Namespace }}

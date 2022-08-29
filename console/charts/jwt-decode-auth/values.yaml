@@ -10,6 +10,10 @@ hyperauth:
 middleware:
   enabled: true
 
+logInfo:
+  logLevel: "debug"
+  logType: "pretty"
+
 image:
   repository: docker.io/tmaxcloudck/jwt-decode
   pullPolicy: IfNotPresent

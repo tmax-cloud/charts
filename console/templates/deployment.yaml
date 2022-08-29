@@ -36,8 +36,8 @@ spec:
             - --base-address=http://0.0.0.0:31303
             {{- with .Values.console }}
             - --keycloak-realm={{ .auth.realm }}
-            - --keycloak-auth-url=https://{{ .auth.hyperauth }}/auth
-            - --keycloak-client-id={{ .auth.clientid }}
+            - --keycloak-auth-url=https://{{ .auth.hyperAuth }}/auth
+            - --keycloak-client-id={{ .auth.clientId }}
             - --mc-mode={{ .mcMode }}
             - --app.chatbotEmbed={{ .chatbotEmbed | default true }}
             - --logInfo.logLevel={{ .logInfo.logLevel | default "debug" }}
@@ -81,4 +81,4 @@ spec:
         - name: console-token
           secret:
             defaultMode: 420
-            secretName: {{ include "console.serviceAccountName" . }}
+            secretName: {{ .Values.global.serviceAccount }}
