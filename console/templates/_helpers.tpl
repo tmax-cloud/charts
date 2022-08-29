@@ -5,10 +5,6 @@ Expand the name of the chart.
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
-{{- define "oauth2-proxy.name" -}}
-{{- default "oauth2-proxy" .Values.nameOverride | trunc 63 | trimSuffix "-" }}
-{{- end }}
-
 {{/*
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
@@ -44,6 +40,8 @@ helm.sh/chart: {{ include "console.chart" . }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+app.kubernetes.io/component: webserver
+app.kubernetes.io/part-of: api-gateway
 {{- end }}
 
 {{/*
@@ -58,9 +56,5 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 Create the name of the service account to use
 */}}
 {{- define "console.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "console.fullname" .) .Values.serviceAccount.name }}
-{{- else }}
-{{- default "default" .Values.serviceAccount.name }}
-{{- end }}
+{{- include "console.fullname" . }}
 {{- end }}

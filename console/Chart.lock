@@ -1,9 +1,9 @@
 dependencies:
 - name: oauth2-proxy
-  repository: https://oauth2-proxy.github.io/manifests
+  repository: file://charts/oauth2-proxy
   version: 6.2.2
 - name: jwt-decode-auth
   repository: file://charts/jwt-decode-auth
   version: 1.0.0
-digest: sha256:586343aef91d74ad4695f5e75d4930ddb1443409d59750fd75c0843a6b1e307e
-generated: "2022-08-18T12:57:45.460781+09:00"
+digest: sha256:9a2767f3a58148b384f4801f51f4002afe8fcd32de4a21e7321583782ea61a1e
+generated: "2022-08-18T13:05:07.649147+09:00"

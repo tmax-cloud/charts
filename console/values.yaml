@@ -1,33 +1,71 @@
+# Default values for console.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+global:
+  serviceAccount: console
 
 nameOverride: "console"
 fullnameOverride: "console"
+
 console:
   auth:
-    hyperauth: hyperauth.org
+    hyperauth: hyperauth.tmaxcloud.org
     realm: tmax
     clientid: hypercloud5
-  mcMode: false
-  chatbotEmbed: false
+  mcMode: true
+  chatbotEmbed: true
   logInfo:
-    logLevel: debug
-    logType: pretty
+    logLevel: "debug"
+    logType: "pretty"
 
-serviceAccount:
-  create: true
+
 service:
   type: ClusterIP
   port: 31303
-replicaCount: 1
+
+ingressroute:
+  enabled: true
+  domain:
+    enabled: true
+    ## need domain name
+    name: ck1-1.link
+  ip:
+    enabled: false
+
 image:
   repository: docker.io/tmaxcloudck/hypercloud-console
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "5.0.76.0"
-imagePullSecrets: {}
+  tag: "oauth"
+#  tag: "5.0.78.0"
+imagePullSecrets: []
+#imagePullSecrets:
 #  - name: regcred
-podAnnotations: {}
-podSecurityContext: {}
-securityContext: {}
+
+#nodeSelector:
+#  node-role.kubernetes.io/master: ""
+
+#tolerations: []
+tolerations:
+  - key: "node-role.kubernetes.io/master"
+    operator: Exists
+
+affinity:
+  podAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - podAffinityTerm:
+          topologyKey: kubernetes.io/hostname
+          labelSelector:
+            matchExpressions:
+              - key: app
+                operator: In
+                values:
+                  - traefik
+        weight: 100
+
+replicaCount: 1
+
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
@@ -39,27 +77,32 @@ resources: {}
   # requests:
   #   cpu: 100m
 #   memory: 128Mi
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
-nodeSelector: {}
-tolerations: []
-affinity: {}
 
-ingressroute:
-  enabled: true
-  domain:
-    enabled: false
-    name: tmaxcloud.org
-  ip:
-    enabled: true
-
+podAnnotations: {}
+podSecurityContext:
+  {}
+  # fsGroup: 2000
+securityContext:
+  {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
 
 oauth2-proxy:
   enabled: true
+  fullnameOverride: "oauth2-proxy"
+  config:
+    redirectUrl: "https://console.ck1-1.link/oauth2/callback"
+  ingressroute:
+    enabled: true
+    host: ck1-1.link
 
 jwt-decode-auth:
   enabled: true
+  fullnameOverride: "jwt-decode-auth"
+  hyperauth:
+    address: hyperauth.tmaxcloud.org
+    realm: tmax

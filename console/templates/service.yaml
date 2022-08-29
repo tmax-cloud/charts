@@ -4,7 +4,6 @@ metadata:
   name: {{ include "console.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    app: console
     {{- include "console.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
@@ -14,5 +13,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app: console
     {{- include "console.selectorLabels" . | nindent 4 }}

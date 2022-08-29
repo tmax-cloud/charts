@@ -4,15 +4,11 @@ metadata:
   name: {{ include "console.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    app: console
     {{- include "console.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
-      app: console
       {{- include "console.selectorLabels" . | nindent 6 }}
   template:
     metadata:
@@ -21,7 +17,6 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        app: console
         {{- include "console.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
@@ -64,6 +59,10 @@ spec:
             httpGet:
               path: /
               port: http
+          volumeMounts:
+            - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+              name: console-token
+              readOnly: true
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
@@ -78,3 +77,8 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+        - name: console-token
+          secret:
+            defaultMode: 420
+            secretName: {{ include "console.serviceAccountName" . }}
