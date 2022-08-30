@@ -11,11 +11,11 @@ $ cd console
 
 ## Introduction
 
-This chart bootstraps a console deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps an console deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 ## Installing the Chart
 
-To install the chart with the release name `console` on an api-gateway-system namespace:
+To install the chart with the release name `console` on a api-gateway-system namespace:
 
 ```console
 $ helm install console . --namespace api-gateway-system --create-namespace --wait
@@ -25,7 +25,7 @@ The [configuration](#configuration) section lists the parameters that can be con
 
 ## Uninstalling the Chart
 
-To uninstall/delete the `console` deployment:
+To uninstall/delete the `my-release` deployment:
 
 ```console
 $ helm uninstall -n api-gateway-system console
@@ -77,3 +77,19 @@ $ helm install console . -f values.yaml
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
+
+
+## Extra environment variable templating
+The extraEnv value supports the tpl function which evaluate strings as templates inside the deployment template.
+This is useful to pass a template string as a value to the chart's extra environment variables and to render external configuration environment values
+
+
+```yaml
+...
+tplValue: "This is a test value for the tpl function"
+extraEnv:
+  - name: TEST_ENV_VAR_1
+    value: test_value_1
+  - name: TEST_ENV_VAR_2
+    value: '{{ .Values.tplValue }}'
+```
