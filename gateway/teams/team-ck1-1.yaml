@@ -1,5 +1,5 @@
 tls:
-  domain: tmaxcloud.org
+  domain: ck1-1.link
   acme:
     enabled: false
     email: temp@tmax.co.kr

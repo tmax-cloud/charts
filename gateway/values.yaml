@@ -1,15 +1,15 @@
 tls:
-  domain: tmaxcloud.org
+  domain: ""
   acme:
     enabled: false
-    email: temp@tmax.co.kr
+    email: "temp@tmax.co.kr"
     dns:
       type: route53
       accessKeyID: accessKeyID
       accessKeySecret: accessKeySecret
       hostedZoneID: hostZoneID
     # staging or production
-    environment: production
+    environment: staging
   selfsigned:
     enabled: true
 

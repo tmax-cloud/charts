@@ -5,6 +5,9 @@
       <SpecSource>
         <option name="pathOrUrl" value="$PROJECT_DIR$/gateway/charts/cert-manager/crds/cert-manager.crds.v1.5.4.yaml" />
       </SpecSource>
+      <SpecSource>
+        <option name="pathOrUrl" value="https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/crds/application-crd.yaml" />
+      </SpecSource>
     </specSources>
   </component>
 </project>
