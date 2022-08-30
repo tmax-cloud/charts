@@ -3,23 +3,23 @@
 # Declare variables to be passed into your templates.
 global:
   serviceAccount: console
-  domain: ""
-  consoleDomain: ""
+  domain: ck1-1.link
+  consoleDomain: console
   hyperAuth:
-    address: ""
-    realm: ""
+    address: hyperauth.tmaxcloud.org
+    realm: tmax
 
 fullnameOverride: "console"
 
 console:
-  clientID: ""
+  clientID: hypercloud5
   mcMode: true
   chatbotEmbed: true
   logInfo:
-    logLevel: "debug"
-    logType: "pretty"
+    logLevel: debug
+    logType: pretty
 image:
-  repository: "docker.io/tmaxcloudck/hypercloud-console"
+  repository: docker.io/tmaxcloudck/hypercloud-console
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   #  tag: "oauth"
@@ -32,9 +32,9 @@ oauth2-proxy:
   enabled: true
   fullnameOverride: "oauth2-proxy"
   config:
-    clientID: ""
-    clientSecret: ""
-    cookieSecret: ""
+    clientID: "hypercloud5"
+    clientSecret: "7119dfca-8bf6-4f7a-a147-52423769547d"
+    cookieSecret: "iM9b7w6ZkDDl4Y72oGmwZA2b5-PkFYGcIxfFTq93gSE="
   image:
     repository: "docker.io/tmaxcloudck/oauth2-proxy"
     tag: "v7.3.0"

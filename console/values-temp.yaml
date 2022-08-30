@@ -3,27 +3,27 @@
 # Declare variables to be passed into your templates.
 global:
   serviceAccount: console
-  domain: ""
-  consoleDomain: ""
+  domain: {DOMAIN}
+  consoleDomain: {CONSOLE_DOMAIN}
   hyperAuth:
-    address: ""
-    realm: ""
+    address: {HYPERAUTH_ADDRESS}
+    realm: {HYPERAUTH_REALM}
 
 fullnameOverride: "console"
 
 console:
-  clientID: ""
-  mcMode: true
-  chatbotEmbed: true
+  clientID: {HYPERAUTH_CLIENT_ID}
+  mcMode: {MC_MODE}
+  chatbotEmbed: {CHATBOT_EMBED}
   logInfo:
-    logLevel: "debug"
-    logType: "pretty"
+    logLevel: {CONSOLE_LOG_LEVEL}
+    logType: {CONSOLE_LOG_TYPE}
 image:
-  repository: "docker.io/tmaxcloudck/hypercloud-console"
+  repository: {CONSOLE_IMAGE_REPO}
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   #  tag: "oauth"
-  tag: "5.0.78.0"
+  tag: {CONSOLE_IMAGE_TAG}
 imagePullSecrets: []
 #imagePullSecrets:
 #  - name: regcred
@@ -32,12 +32,12 @@ oauth2-proxy:
   enabled: true
   fullnameOverride: "oauth2-proxy"
   config:
-    clientID: ""
-    clientSecret: ""
-    cookieSecret: ""
+    clientID: {HYPERAUTH_CLIENT_ID}
+    clientSecret: {HYPERAUTH_CLIENT_SECRET}
+    cookieSecret: {COOKIE_SECRET}
   image:
-    repository: "docker.io/tmaxcloudck/oauth2-proxy"
-    tag: "v7.3.0"
+    repository: {OAUTH2_IMAGE_REPO}
+    tag: {OAUTH2_IMAGE_TAG}
     imagePullSecrets: []
   ingressroute:
     enabled: true
@@ -46,11 +46,11 @@ jwt-decode-auth:
   enabled: true
   fullnameOverride: "jwt-decode-auth"
   logInfo:
-    logLevel: "debug"
-    logType: "pretty"
+    logLevel: {JWT_LOG_LEVEL}
+    logType: {JWT_LOG_TYPE}
   image:
-    repository: "docker.io/tmaxcloudck/jwt-decode"
-    tag: "5.0.0.3"
+    repository: {JWT_IMAGE_REPO}
+    tag: {JWT_IMAG_TAG}
   imagePullSecrets: []
 
 
