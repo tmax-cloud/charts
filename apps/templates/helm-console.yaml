@@ -19,4 +19,4 @@ spec:
     helm:
       releaseName: console
       valueFiles:
-        - values.yaml
+        - teams/local-test.yaml

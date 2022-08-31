@@ -19,4 +19,4 @@ spec:
     helm:
       releaseName: gateway
       valueFiles:
-        - values.yaml
+        - teams/local-test.yaml

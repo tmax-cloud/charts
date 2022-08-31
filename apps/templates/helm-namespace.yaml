@@ -19,4 +19,4 @@ spec:
     helm:
       releaseName: namespace
       valueFiles:
-        - values.yaml
+        - teams/local-test.yaml
