@@ -17,13 +17,13 @@ metadata:
   name: tmaxcloud-ca
 spec:
   commonName: tmaxcloud
-  duration: 8760h # 360d=1y
+  duration: 8760h0m0s # 360d=1y
   isCA: true
   issuerRef:
     name: tmaxcloud-selfsigned
     kind: ClusterIssuer
     group: cert-manager.io
-  renewBefore: 720h # 30d
+  renewBefore: 720h0m0s # 30d
   secretName: tmaxcloud-ca
   usages:
     - digital signature
