@@ -50,7 +50,8 @@ metadata:
   name: {{ template "oauth2-proxy.fullname" . }}-forwardauth
 spec:
   forwardAuth:
-    address: https://{{ include "oauth2-proxy.fullname" . }}.{{ .Values.global.domain }}/
+    address: http://{{ include "oauth2-proxy.fullname" . }}/
+    # address: https://{{ include "oauth2-proxy.fullname" . }}.{{ .Values.global.domain }}/
     trustForwardHeader: true
     authResponseHeaders:
       - X-Auth-Request-Access-Token

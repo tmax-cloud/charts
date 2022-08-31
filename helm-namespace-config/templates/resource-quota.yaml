@@ -4,6 +4,8 @@ kind: ResourceQuota
 metadata:
   name: resource-quota
   namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "helm-namespace-config.labels" . | nindent 4 }}
   annotations:
     argocd.argoproj.io/sync-wave: "0"
 spec:

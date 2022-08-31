@@ -16,7 +16,7 @@ quota:
   pods: "10"
   persistentvolumeclaims: "20"
   resourcequotas: "1"
-  services: "5"
+  services: "10"
 
   #specifies the limit ranges for the chart
 limits:

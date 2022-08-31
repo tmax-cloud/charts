@@ -4,6 +4,8 @@ kind: LimitRange
 metadata:
   name: limit-range
   namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "helm-namespace-config.labels" . | nindent 4 }}
   annotations:
     argocd.argoproj.io/sync-wave: "0"
 spec:

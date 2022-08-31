@@ -18,4 +18,4 @@ spec:
     helm:
       releaseName: gateway
       valueFiles:
-        - teams/team-ck1-1.yaml
+        - teams/local-test.yaml

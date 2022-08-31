@@ -6,7 +6,7 @@ namespace: api-gateway-system
 
 #specifies the quota to be used for resources
 quota:
-  enabled: false
+  enabled: true
   requests:
     cpu: '1'
     memory: 1Gi
@@ -14,17 +14,17 @@ quota:
     cpu: '2'
     memory: 2Gi
   pods: "10"
-  persistentvolumeclaims: "20"
+  persistentvolumeclaims: "1"
   resourcequotas: "1"
   services: "10"
 
   #specifies the limit ranges for the chart
 limits:
-  enabled: false
+  enabled: true
   default:
     cpu: 200m
-    memory: 512Mi
+    memory: 256Mi
   defaultRequest:
     cpu: 100m
-    memory: 256Mi
+    memory: 128Mi
   type: Container
