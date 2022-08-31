@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: resource-quota
-  namespace: {{ .Values.namespace }}
+  namespace: api-gateway-system
   labels:
     {{- include "helm-namespace-config.labels" . | nindent 4 }}
   annotations:
