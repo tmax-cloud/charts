@@ -8,6 +8,19 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
+  syncPolicy:
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - RespectIgnoreDifferences=true
+    automated:
+      selfHeal: true
+      prune: true
+    retry:
+      limit: 3
+      backoff:
+        duration: "30s"
+        factor: 2
+        maxDuration: "3m0s"
   destination:
     server: {{ .Values.spec.destination.server }}
     namespace: api-gateway-system
