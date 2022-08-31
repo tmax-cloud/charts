@@ -10,7 +10,6 @@ spec:
   subject:
     organizations:
       - "tmax-cloud"
-  isCA: false
   usages:
     - digital signature
     - key encipherment
