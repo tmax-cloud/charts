@@ -10,6 +10,7 @@ metadata:
 spec:
   destination:
     server: {{ .Values.spec.destination.server }}
+    namespace: api-gateway-system
   project: default
   source:
     path: gateway
@@ -18,4 +19,4 @@ spec:
     helm:
       releaseName: gateway
       valueFiles:
-        - teams/local-test.yaml
+        - values.yaml
