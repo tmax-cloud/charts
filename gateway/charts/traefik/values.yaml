@@ -146,7 +146,7 @@ providers:
   kubernetesIngress:
     enabled: true
     allowExternalNameServices: true
-    allowEmptyServices: false
+    allowEmptyServices: true
     ingressClass: tmax-cloud
     # labelSelector: environment=production,method=traefik
     namespaces: []
