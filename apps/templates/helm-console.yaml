@@ -16,11 +16,11 @@ spec:
       selfHeal: true
       prune: true
     retry:
-      limit: 3
+      limit: 1
       backoff:
-        duration: "30s"
+        duration: "10s"
         factor: 2
-        maxDuration: "3m0s"
+        maxDuration: "1m0s"
   destination:
     server: {{ .Values.spec.destination.server }}
     namespace: api-gateway-system
