@@ -153,7 +153,6 @@ ingress:
   #  - hosts:
   #      - oauth2-proxy.ck1-1.link
 
-
 resources: {}
   # limits:
   #   cpu: 100m

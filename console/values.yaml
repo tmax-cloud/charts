@@ -8,6 +8,7 @@ global:
   hyperAuth:
     address: ""
     realm: ""
+  timeZone: ""
 
 fullnameOverride: "console"
 
@@ -34,7 +35,7 @@ oauth2-proxy:
   config:
     clientID: ""
     clientSecret: ""
-    cookieSecret: ""
+    cookieSecret: "iM9b7w6ZkDDl4Y72oGmwZA2b5-PkFYGcIxfFTq93gSE="
   image:
     repository: "docker.io/tmaxcloudck/oauth2-proxy"
     tag: "v7.3.0"
@@ -52,7 +53,6 @@ jwt-decode-auth:
     repository: "docker.io/tmaxcloudck/jwt-decode"
     tag: "5.0.0.3"
   imagePullSecrets: []
-
 
 ingressroute:
   enabled: true

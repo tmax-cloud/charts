@@ -29,6 +29,13 @@ spec:
           secret:
             defaultMode: 420
             secretName: {{ .Values.global.serviceAccount }}
+{{- if .Values.global.timeZone }}
+{{- if not (eq .Values.global.timeZone "UTC") }}
+        - name: timezone-config
+          hostPath:
+            path: "/usr/share/zoneinfo/{{ .Values.global.timeZone }}"
+{{- end }}
+{{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -61,6 +68,12 @@ spec:
             - name: MULTI_CLUSTER_PREFIX
               value: multicluster
           volumeMounts:
+{{- if .Values.global.timeZone }}
+{{- if not (eq .Values.global.timeZone "UTC") }}
+            - mountPath: /etc/localtime
+              name: timezone-config
+{{- end }}
+{{- end }}
             - name: console-token
               mountPath: /var/run/secrets/kubernetes.io/serviceaccount
               readOnly: true

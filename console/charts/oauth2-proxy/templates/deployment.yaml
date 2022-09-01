@@ -209,6 +209,13 @@ spec:
           name: configalpha
           subPath: oauth2_proxy.yml
 {{- end }}
+{{- if .Values.global.timeZone }}
+{{- if not (eq .Values.global.timeZone "UTC") }}
+        - mountPath: /etc/localtime
+          name: timezone-config
+          readOnly: true
+{{- end }}
+{{- end }}
 {{- if .Values.authenticatedEmailsFile.enabled }}
         - mountPath: /etc/oauth2-proxy
           name: configaccesslist
@@ -232,6 +239,13 @@ spec:
         secret:
           defaultMode: 420
           secretName: {{ .Values.global.serviceAccount }}
+{{- if .Values.global.timeZone }}
+{{- if not (eq .Values.global.timeZone "UTC") }}
+      - name: timezone-config
+        hostPath:
+          path: "/usr/share/zoneinfo/{{ .Values.global.timeZone }}"
+{{- end }}
+{{- end }}
 {{- with .Values.config.google }}
 {{- if and .adminEmail (or .serviceAccountJson .existingSecret) }}
       - name: google-secret

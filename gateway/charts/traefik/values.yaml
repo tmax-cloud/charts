@@ -257,7 +257,10 @@ additionalArguments: []
 #  - "--log.level=DEBUG"
 
 # Environment variables to be passed to Traefik's binary
-env: []
+#env: []
+env:
+ - name: TZ
+   value: Asia/Seoul
 # - name: SOME_VAR
 #   value: some-var-value
 # - name: SOME_VAR_FROM_CONFIG_MAP
