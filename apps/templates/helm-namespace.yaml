@@ -1,12 +1,16 @@
+{{- if .Values.modules.gatewayBootstrap.enabled }}
+{{ $isMaster := eq .Values.global.cluster "master" }}
+{{ $prefix := printf "%s-%s" .Values.global.clusterNamespace .Values.global.clusterName }}
+{{ $module := "gateway-bootstrap-namespace" }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: namespace
+  labels:
+    cluster: {{ ternary "master" $prefix $isMaster }}
+  name: {{ ternary $module (printf "%s-%s" $prefix $module) $isMaster }}
   namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
   annotations:
-    argocd.argoproj.io/sync-wave: "-1"
+    argocd.argoproj.io/sync-wave: "-3"
 spec:
   syncPolicy:
     syncOptions:
@@ -15,14 +19,12 @@ spec:
       selfHeal: true
       prune: true
   destination:
-    server: {{ .Values.spec.destination.server }}
-    namespace: default
-  project: default
+    server: {{ .Values.global.clusterName }}
+  project: {{ .Values.spec.project }}
   source:
     path: helm-namespace-config
     repoURL: {{ .Values.spec.source.repoURL }}
     targetRevision: {{ .Values.spec.source.targetRevision }}
     helm:
       releaseName: namespace
-      valueFiles:
-        - teams/local-test.yaml
+{{- end }}
