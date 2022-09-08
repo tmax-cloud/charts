@@ -1,4 +1,4 @@
-{{- if .Values.modules.gatewayBootstrap.gateway.enabled }}
+{{- if .Values.modules.gatewayBootstrap.traefik.enabled }}
 {{ $isMaster := eq .Values.global.cluster "master" }}
 {{ $prefix := printf "%s-%s" .Values.global.clusterNamespace .Values.global.clusterName }}
 {{ $module := "gateway-bootstrap-gateway" }}

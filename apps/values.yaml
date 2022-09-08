@@ -52,9 +52,10 @@ modules:
         logLevel: "debug"
         logType: "pretty"
       cookieSecret: ""
+
     certManager:
       enabled: true
-    gateway:
+    traefik:
       enabled: true
     console:
       enabled: true
