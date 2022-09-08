@@ -43,7 +43,7 @@ modules:
       address: "hyperauth.tmaxcloud.org"
       realm: "tmax"
       clientID: "hypercloud5"
-      clientSecret: ""
+      clientSecret: "aasdfasdfdas"
     consoleInfo:
       subDomain: console
       mcMode: false
