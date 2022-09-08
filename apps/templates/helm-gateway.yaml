@@ -78,7 +78,7 @@ spec:
         - name: certmanager.enabled
           value: {{ .Values.modules.gatewayBootstrap.certManager.enabled | quote }}
       {{- end }}
-      {{- if.Values.global.privateRegistry }}
+      {{- if .Values.global.privateRegistry }}
         - name: traefik.image.name
           value: {{ .Values.global.privateRegistry }}/docker.io/library/traefik
         {{- if .Values.modules.gatewayBootstrap.certManager.enabled }}
