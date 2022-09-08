@@ -51,7 +51,7 @@ modules:
       logInfo:
         logLevel: "debug"
         logType: "pretty"
-      cookieSecret: "adfddfasdfasdfsddsfa"
+      cookieSecret: "Qj1gKJvgnPCCDFS9DJlkmtFwyMKlUaIDC7oE4jgA3kY="
 
     certManager:
       enabled: true
