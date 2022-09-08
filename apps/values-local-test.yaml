@@ -12,7 +12,7 @@ global:
   privateRegistry: ""
   adminUser: test@test.co.kr
   cluster: master
-  clusterName: in-cluster
+  clusterName: "https://kubernetes.default.svc"
   clusterNamespace: default
   timeZone: UTC
 
