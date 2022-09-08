@@ -81,13 +81,13 @@ spec:
           value: {{ .Values.global.privateRegistry }}/docker.io/library/traefik
         {{- if .Values.modules.gatewayBootstrap.certManager.enabled }}
         - name: certmanager.image.repository
-          value: "{{ .Values.global.registry.private_registry }}/quay.io/jetstack/cert-manager-controller"
+          value: "{{ .Values.global.privateRegistry }}/quay.io/jetstack/cert-manager-controller"
         - name: certmanager.cainjector.image.repository
-          value: "{{ .Values.global.registry.private_registry }}/quay.io/jetstack/cert-manager-cainjector"
+          value: "{{ .Values.global.privateRegistry }}/quay.io/jetstack/cert-manager-cainjector"
         - name: certmanager.webhook.image.repository
-          value: "{{ .Values.global.registry.private_registry }}/quay.io/jetstack/cert-manager-webhook"
+          value: "{{ .Values.global.privateRegistry }}/quay.io/jetstack/cert-manager-webhook"
         - name: certmanager.startupapicheck.image.repository
-          value: "{{ .Values.global.registry.private_registry }}/quay.io/jetstack/cert-manager-ctl"
+          value: "{{ .Values.global.privateRegistry }}/quay.io/jetstack/cert-manager-ctl"
         {{- end }}
       {{- end }}
 {{- end }}

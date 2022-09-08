@@ -52,7 +52,6 @@ modules:
         logLevel: "debug"
         logType: "pretty"
       cookieSecret: ""
-
     certManager:
       enabled: true
     gateway:
