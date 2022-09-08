@@ -36,6 +36,8 @@ spec:
     helm:
       releaseName: gateway
       parameters:
+        - name: traefik.service.type
+          value: {{ .Values.modules.gatewayBootstrap.service.type | default "LoadBalancer" }}
       {{- with .Values.modules.gatewayBootstrap.tls }}
       {{- if .acme.enabled }}
         - name: tls.acme.enabled

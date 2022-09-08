@@ -54,7 +54,7 @@ spec:
         - name: oauth2-proxy.config.clientID
           value: {{ .clientID | default "hypercloud5" }}
         - name: oauth2-proxy.config.clientSecret
-          value: {{ .clientSecret | default "" }}
+          value: {{ .clientSecret | default "Qj1gKJvgnPCCDFS9DJlkmtFwyMKlUaIDC7oE4jgA3kY=" }}
         {{- end }}
         {{- with .Values.modules.gatewayBootstrap.consoleInfo }}
         - name: console.mcMode
