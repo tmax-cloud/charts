@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: api-gateway-system
-  labels:
-    {{- include "helm-namespace-config.labels" . | nindent 4 }}
-  annotations:
-    "argocd.argoproj.io/sync-wave": "-1"

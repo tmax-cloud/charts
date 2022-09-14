@@ -5,7 +5,7 @@ metadata:
   name: limit-range
   namespace: api-gateway-system
   labels:
-    {{- include "helm-namespace-config.labels" . | nindent 4 }}
+    {{- include "namespace.labels" . | nindent 4 }}
   annotations:
     argocd.argoproj.io/sync-wave: "0"
 spec:
