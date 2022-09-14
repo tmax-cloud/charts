@@ -4,7 +4,7 @@
 global:
   serviceAccount: console-oauth
   domain: tmaxcloud.org
-  consoleDomain: console-oauth
+  consoleDomain: console
   hyperAuth:
     address: hyperauth.tmaxcloud.org
     realm: tmax
@@ -30,11 +30,10 @@ imagePullSecrets: []
 
 oauth2proxy:
   enabled: true
-  fullnameOverride: "oauth2-proxy-console"
+  fullnameOverride: "oauth2-proxy"
   config:
     clientID: "hypercloud5"
     clientSecret: "7119dfca-8bf6-4f7a-a147-52423769547d"
-    cookieName: "test"
     cookieSecret: "iM9b7w6ZkDDl4Y72oGmwZA2b5-PkFYGcIxfFTq93gSE="
   image:
     repository: "docker.io/tmaxcloudck/oauth2-proxy"
@@ -45,7 +44,7 @@ oauth2proxy:
 
 jwtdecodeauth:
   enabled: true
-  fullnameOverride: "jwt-decode-auth-console"
+  fullnameOverride: "jwt-decode-auth"
   logInfo:
     logLevel: "debug"
     logType: "pretty"
