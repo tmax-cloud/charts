@@ -101,15 +101,6 @@ experimental:
     # You may create that Gateway in another namespace, setting its name below:
     # namespace: default
 
-# Create an IngressRoute for the dashboard
-ingressRoute:
-  dashboard:
-    enabled: true
-    # Additional ingressRoute annotations (e.g. for kubernetes.io/ingress.class)
-    annotations: {}
-    # Additional ingressRoute labels (e.g. for filtering IngressRoute by custom labels)
-    labels: {}
-
 rollingUpdate:
   maxUnavailable: 1
   maxSurge: 1

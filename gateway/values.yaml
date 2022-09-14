@@ -93,3 +93,17 @@ traefik:
   tolerations:
     - key: "node-role.kubernetes.io/master"
       operator: Exists
+
+  # Create an IngressRoute for the dashboard
+  ingressRoute:
+    dashboard:
+      enabled: true
+      # Additional ingressRoute annotations (e.g. for kubernetes.io/ingress.class)
+      annotations: {}
+      # Additional ingressRoute labels (e.g. for filtering IngressRoute by custom labels)
+      labels: {}
+      # optional: user id for dashboard
+      id: ""
+      # optional: user password for dashboard
+      password: ""
+
