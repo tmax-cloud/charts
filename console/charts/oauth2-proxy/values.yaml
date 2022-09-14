@@ -30,7 +30,7 @@ config:
   # Example:
   # existingSecret: google-secret
   # Default configuration, to be overridden
-  redirectUrl: "https://console-js.tmaxcloud.org/oauth2/callback"
+#  redirectUrl: "https://console.tmaxcloud.org/oauth2/callback"
   # hyperauth: {}
   hyperAuth:
     address: hyperauth.tmaxcloud.org

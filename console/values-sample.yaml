@@ -28,7 +28,7 @@ imagePullSecrets: []
 #imagePullSecrets:
 #  - name: regcred
 
-oauth2-proxy:
+oauth2proxy:
   enabled: true
   fullnameOverride: "oauth2-proxy"
   config:
@@ -42,7 +42,7 @@ oauth2-proxy:
   ingressroute:
     enabled: true
 
-jwt-decode-auth:
+jwtdecodeauth:
   enabled: true
   fullnameOverride: "jwt-decode-auth"
   logInfo:

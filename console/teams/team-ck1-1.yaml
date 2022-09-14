@@ -2,14 +2,14 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 global:
-  serviceAccount: console
+  serviceAccount: console-oauth2
   domain: ck1-1.link
-  consoleDomain: console
+  consoleDomain: console-oauth2
   hyperAuth:
     address: hyperauth.tmaxcloud.org
     realm: tmax
 
-fullnameOverride: "console"
+fullnameOverride: "console-oauth"
 
 console:
   clientID: hypercloud5
@@ -22,18 +22,19 @@ image:
   repository: docker.io/tmaxcloudck/hypercloud-console
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  #  tag: "oauth"
-  tag: "5.0.78.0"
+  tag: "oauth"
+#  tag: "5.0.78.0"
 imagePullSecrets: []
 #imagePullSecrets:
 #  - name: regcred
 
-oauth2-proxy:
+oauth2proxy:
   enabled: true
-  fullnameOverride: "oauth2-proxy"
+  fullnameOverride: "oauth2-proxy-console"
   config:
     clientID: "hypercloud5"
     clientSecret: "7119dfca-8bf6-4f7a-a147-52423769547d"
+    cookieName: "test"
     cookieSecret: "iM9b7w6ZkDDl4Y72oGmwZA2b5-PkFYGcIxfFTq93gSE="
   image:
     repository: "docker.io/tmaxcloudck/oauth2-proxy"
@@ -42,9 +43,9 @@ oauth2-proxy:
   ingressroute:
     enabled: true
 
-jwt-decode-auth:
+jwtdecodeauth:
   enabled: true
-  fullnameOverride: "jwt-decode-auth"
+  fullnameOverride: "jwt-decode-auth-console"
   logInfo:
     logLevel: "debug"
     logType: "pretty"

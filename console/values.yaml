@@ -29,13 +29,15 @@ imagePullSecrets: []
 #imagePullSecrets:
 #  - name: regcred
 
-oauth2-proxy:
+oauth2proxy:
   enabled: true
   fullnameOverride: "oauth2-proxy"
   config:
     clientID: ""
     clientSecret: ""
     cookieSecret: "iM9b7w6ZkDDl4Y72oGmwZA2b5-PkFYGcIxfFTq93gSE="
+  extraArgs:
+
   image:
     repository: "docker.io/tmaxcloudck/oauth2-proxy"
     tag: "v7.3.0"
@@ -43,7 +45,7 @@ oauth2-proxy:
   ingressroute:
     enabled: true
 
-jwt-decode-auth:
+jwtdecodeauth:
   enabled: true
   fullnameOverride: "jwt-decode-auth"
   logInfo:

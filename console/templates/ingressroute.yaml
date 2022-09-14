@@ -18,7 +18,7 @@ spec:
       {{- end }}
       priority: 10
       middlewares:
-        - name: {{ .Release.Namespace }}-oauth2-proxy-forwardauth@kubernetescrd
+        - name: {{ .Release.Namespace }}-{{ .Values.oauth2proxy.fullnameOverride }}-forwardauth@kubernetescrd
       services:
         - name: {{ include "console.fullname" . }}
           namespace: {{ .Release.Namespace }}
@@ -31,10 +31,10 @@ spec:
       match: PathPrefix(`/oauth2/`)
       {{- end }}
       middlewares:
-        - name: {{ .Release.Namespace }}-oauth2-proxy-headers@kubernetescrd
+        - name: {{ .Release.Namespace }}-{{ .Values.oauth2proxy.fullnameOverride }}-headers@kubernetescrd
       services:
         - kind: Service
-          name: oauth2-proxy
+          name: {{ .Values.oauth2proxy.fullnameOverride }}
           namespace: {{ .Release.Namespace }}
           port: 80
           scheme: http
@@ -46,8 +46,7 @@ spec:
       {{- end }}
       priority: 100
       middlewares:
-        - name: {{ .Release.Namespace }}-oauth2-proxy-forwardauth@kubernetescrd
-        - name: {{ .Release.Namespace }}-jwt-decode-auth@kubernetescrd
+        - name: {{ .Release.Namespace }}-{{ .Values.oauth2proxy.fullnameOverride }}-forwardauth@kubernetescrd
         - name: hypercloud-stripprefix@file
       services:
         - kind: Service
@@ -64,8 +63,7 @@ spec:
       {{- end }}
       priority: 100
       middlewares:
-        - name: {{ .Release.Namespace }}-oauth2-proxy-forwardauth@kubernetescrd
-        - name: {{ .Release.Namespace }}-jwt-decode-auth@kubernetescrd
+        - name: {{ .Release.Namespace }}-{{ .Values.oauth2proxy.fullnameOverride }}-forwardauth@kubernetescrd
         - name: kubernetes-stripprefix@file
       services:
         - kind: Service
@@ -82,8 +80,7 @@ spec:
       {{- end }}
       priority: 100
       middlewares:
-        - name: {{ .Release.Namespace }}-oauth2-proxy-forwardauth@kubernetescrd
-        - name: {{ .Release.Namespace }}-jwt-decode-auth@kubernetescrd
+        - name: {{ .Release.Namespace }}-{{ .Values.oauth2proxy.fullnameOverride }}-forwardauth@kubernetescrd
         - name: monitoring-stripprefix-tenancy@file
       services:
         - kind: Service
@@ -99,8 +96,7 @@ spec:
       {{- end }}
       priority: 100
       middlewares:
-        - name: {{ .Release.Namespace }}-oauth2-proxy-forwardauth@kubernetescrd
-        - name: {{ .Release.Namespace }}-jwt-decode-auth@kubernetescrd
+        - name: {{ .Release.Namespace }}-{{ .Values.oauth2proxy.fullnameOverride }}-forwardauth@kubernetescrd
         - name: monitoring-stripprefix@file
       services:
         - kind: Service
@@ -116,8 +112,7 @@ spec:
       {{- end }}
       priority: 100
       middlewares:
-        - name: {{ .Release.Namespace }}-oauth2-proxy-forwardauth@kubernetescrd
-        - name: {{ .Release.Namespace }}-jwt-decode-auth@kubernetescrd
+        - name: {{ .Release.Namespace }}-{{ .Values.oauth2proxy.fullnameOverride }}-forwardauth@kubernetescrd
         - name: monitoring-stripprefix@file
       services:
         - kind: Service
