@@ -18,10 +18,6 @@ data:
           rootCAs:
             - /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
       middlewares:
-        dashboard-auth:
-          basicAuth:
-            users:
-              - "admin:$apr1$WboCaB7Z$PJbsvKlI3XMq12xMeQMmG."
         cors-header:
           headers:
             accessControlAllowMethods:
