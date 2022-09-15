@@ -1,0 +1,74 @@
+apiVersion: v1
+entries:
+  applications:
+  - apiVersion: v2
+    appVersion: "1.0"
+    created: "2022-09-15T03:58:01.330186889Z"
+    description: Applications
+    digest: 26af93b0e856d786e354e086560b0938d087474bb7a52ce66766acacd43a8712
+    name: applications
+    type: application
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/applications-1.0.0/applications-1.0.0.tgz
+    version: 1.0.0
+  console:
+  - apiVersion: v2
+    appVersion: 5.0.77.0
+    created: "2022-09-15T03:58:01.521274514Z"
+    dependencies:
+    - alias: oauth2proxy
+      condition: oauth2proxy.enabled
+      name: oauth2-proxy
+      repository: file://charts/oauth2-proxy
+      version: 6.2.2
+    - alias: jwtdecodeauth
+      condition: jwtdecodeauth.enabled
+      name: jwt-decode-auth
+      repository: file://charts/jwt-decode-auth
+      version: 1.0.0
+    description: A console with oauth2-proxy and jwt-decode
+    digest: bb7f2faefd13cbebf4dc037cc34a9b2338de34bf73d1c9a48f2d5a4a13a22858
+    home: https://www.tmaxcloud.com/#!/home
+    maintainers:
+    - email: jinsoo_youn@tmax.co.kr
+      name: jinsoo_youn
+    name: console
+    sources:
+    - https://github.com/tmax-cloud/console
+    type: application
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/console-1.0.0/console-1.0.0.tgz
+    version: 1.0.0
+  gateway:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-09-15T03:58:01.699774824Z"
+    dependencies:
+    - alias: certmanager
+      condition: certmanager.enabled
+      name: cert-manager
+      repository: file://charts/cert-manager
+      version: v1.5.4
+    - condition: traefik.enabled
+      name: traefik
+      repository: file://charts/traefik
+      version: 10.24.0
+    description: A Helm chart for Kubernetes
+    digest: 81f238f84e33333fdf7ee2715cc0a5185941637545d92ae6bad98cfc02bf0b0c
+    name: gateway
+    type: application
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/gateway-1.0.0/gateway-1.0.0.tgz
+    version: 1.0.0
+  namespace:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-09-15T03:58:01.849938722Z"
+    description: A Helm chart for Kubernetes
+    digest: 0313daa7343757a0110720ab328efbe196b57e80724dd361ec57348514765dda
+    name: namespace
+    type: application
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/namespace-1.0.0/namespace-1.0.0.tgz
+    version: 1.0.0
+generated: "2022-09-15T03:58:01.849943722Z"
