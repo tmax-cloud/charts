@@ -35,7 +35,7 @@ oauth2proxy:
     clientID: ""
     clientSecret: ""
     cookieSecret: "iM9b7w6ZkDDl4Y72oGmwZA2b5-PkFYGcIxfFTq93gSE="
-  extraArgs:
+#  extraArgs:
 
   image:
     repository: "docker.io/tmaxcloudck/oauth2-proxy"
