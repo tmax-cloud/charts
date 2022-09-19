@@ -13,6 +13,33 @@ entries:
     version: 1.0.0
   console:
   - apiVersion: v2
+    appVersion: 5.0.81.0
+    created: "2022-09-19T01:08:02.89730641Z"
+    dependencies:
+    - alias: oauth2proxy
+      condition: oauth2proxy.enabled
+      name: oauth2-proxy
+      repository: file://charts/oauth2-proxy
+      version: 6.2.2
+    - alias: jwtdecodeauth
+      condition: jwtdecodeauth.enabled
+      name: jwt-decode-auth
+      repository: file://charts/jwt-decode-auth
+      version: 1.0.0
+    description: A console with oauth2-proxy and jwt-decode
+    digest: 4f7e616e4986d6ac643764ef8a4682cdd811239f7f2a4d933842429dd44d81c4
+    home: https://www.tmaxcloud.com/#!/home
+    maintainers:
+    - email: jinsoo_youn@tmax.co.kr
+      name: jinsoo_youn
+    name: console
+    sources:
+    - https://github.com/tmax-cloud/console
+    type: application
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/console-1.0.1/console-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
     appVersion: 5.0.77.0
     created: "2022-09-15T03:58:01.521274514Z"
     dependencies:
@@ -60,6 +87,17 @@ entries:
     urls:
     - https://github.com/tmax-cloud/charts/releases/download/gateway-1.0.0/gateway-1.0.0.tgz
     version: 1.0.0
+  jwt-decode-auth:
+  - apiVersion: v2
+    appVersion: 5.0.0.3
+    created: "2022-09-19T01:08:03.036963545Z"
+    description: A Helm chart for Kubernetes
+    digest: 472f58fc59e26c24f1019844fc291d8e9018c0367643b49a6bfb944dd5d6ef96
+    name: jwt-decode-auth
+    type: application
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/jwt-decode-auth-1.0.0/jwt-decode-auth-1.0.0.tgz
+    version: 1.0.0
   namespace:
   - apiVersion: v2
     appVersion: 1.16.0
@@ -71,4 +109,4 @@ entries:
     urls:
     - https://github.com/tmax-cloud/charts/releases/download/namespace-1.0.0/namespace-1.0.0.tgz
     version: 1.0.0
-generated: "2022-09-15T03:58:01.849943722Z"
+generated: "2022-09-19T01:08:03.036973945Z"
