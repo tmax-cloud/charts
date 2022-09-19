@@ -3,7 +3,7 @@ name: console
 description: A console with oauth2-proxy and jwt-decode
 type: application
 version: 1.0.0
-appVersion: "5.0.77.0"
+appVersion: "5.0.81.0"
 dependencies:
   - name: oauth2-proxy
     version: 6.2.2

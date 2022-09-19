@@ -1,67 +1,29 @@
-# Default values for console.
+# Default values for jwt-decode-auth.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-global:
-  serviceAccount: console
-  domain: ""
-  consoleDomain: ""
-  hyperAuth:
-    address: ""
-    realm: ""
-  timeZone: ""
 
-fullnameOverride: "console"
+nameOverride: "jwt-decode-auth"
+fullnameOverride: "jwt-decode-auth"
+hyperAuth:
+  address: hyperauth.tmaxcloud.org
+  realm: tmax
+middleware:
+  enabled: true
 
-console:
-  clientID: ""
-  mcMode: true
-  chatbotEmbed: true
-  logInfo:
-    logLevel: "debug"
-    logType: "pretty"
+logInfo:
+  logLevel: "debug"
+  logType: "pretty"
+
 image:
-  repository: "docker.io/tmaxcloudck/hypercloud-console"
+  repository: docker.io/tmaxcloudck/jwt-decode
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "5.0.0.3"
 imagePullSecrets: []
 #imagePullSecrets:
 #  - name: regcred
 
-oauth2proxy:
-  enabled: true
-  fullnameOverride: "oauth2-proxy"
-  config:
-    clientID: ""
-    clientSecret: ""
-    cookieSecret: "iM9b7w6ZkDDl4Y72oGmwZA2b5-PkFYGcIxfFTq93gSE="
-  extraArgs:
-
-  image:
-    repository: "docker.io/tmaxcloudck/oauth2-proxy"
-    tag: "v7.3.0"
-    imagePullSecrets: []
-  ingressroute:
-    enabled: true
-
-jwtdecodeauth:
-  enabled: true
-  fullnameOverride: "jwt-decode-auth"
-  logInfo:
-    logLevel: "debug"
-    logType: "pretty"
-  image:
-    repository: "docker.io/tmaxcloudck/jwt-decode"
-    tag: "5.0.0.3"
-  imagePullSecrets: []
-
-ingressroute:
-  enabled: true
-
-service:
-  type: ClusterIP
-  port: 31303
-
+#nodeSelector: {}
 #nodeSelector:
 #  node-role.kubernetes.io/master: ""
 
@@ -85,6 +47,32 @@ affinity:
 
 replicaCount: 1
 
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+# fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+# runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 8080
+
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
@@ -97,16 +85,9 @@ resources: {}
   #   cpu: 100m
 #   memory: 128Mi
 
-podAnnotations: {}
-podSecurityContext:
-  {}
-  # fsGroup: 2000
-securityContext:
-  {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
-
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
