@@ -2,7 +2,7 @@ apiVersion: v2
 name: console
 description: A console with oauth2-proxy and jwt-decode
 type: application
-version: 1.0.0
+version: 1.0.1
 appVersion: "5.0.81.0"
 dependencies:
   - name: oauth2-proxy
