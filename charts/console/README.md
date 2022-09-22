@@ -5,8 +5,8 @@
 ## Prerequisite
 
 ```shell
-$ helm repo add tmax https://tmax-cloud.github.io/charts
-$ helm repo update
+helm repo add tmax https://tmax-cloud.github.io/charts
+helm repo update
 ```
 
 ## Introduction
@@ -17,19 +17,23 @@ This chart bootstraps a console deployment on a [Kubernetes](http://kubernetes.i
 
 To install the chart with the release name `console` on an api-gateway-system namespace:
 
-```console
-$ helm show values tmax/console > value.yaml
-$ helm install console tmax/console --values value.yaml --namespace api-gateway-system --create-namespace --wait
+```shell
+helm show values tmax/console > value.yaml
 ```
 
-The [configuration](#configuration) section lists the parameters that can be configured during installation.
+Edit the values.yaml file by referring to the [configuration](#configuration) which lists the parameters that can be set.
+
+```shell
+helm install console tmax/console --values value.yaml --namespace api-gateway-system --create-namespace --wait
+```
+
 
 ## Uninstalling the Chart
 
 To uninstall/delete the `console` deployment:
 
-```console
-$ helm uninstall -n api-gateway-system console
+```shell
+helm uninstall -n api-gateway-system console
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
@@ -51,7 +55,7 @@ The following table lists the configurable parameters of the oauth2-proxy chart 
 | `console.logInfo.logLevel`         | log Level ()                                                                             | `"debug"`                                    |
 | `console.logInfo.logType`          | log Type ()                                                                              | `"pretty"`                                   |
 | `image.repository`                 | console image repository                                                                 | `"docker.io/tmaxcloudck/hypercloud-console"` |
-| `image.tag`                        | console image version(tag)                                                               | `"5.0.78.0"`                                 |
+| `image.tag`                        | console image version(tag)                                                               | `"5.2.0.0"`                                  |
 | `oauth2-proxy.enabled`             | Flag to install oauth2-proxy                                                             | `ture`                                       |
 | `oauth2-proxy.config.clientID`     | hyperAuth client ID                                                                      | `""`                                         |
 | `oauth2-proxy.config.clientSecret` | hyperAuth client Secret                                                                  | `""`                                         |
@@ -66,15 +70,15 @@ The following table lists the configurable parameters of the oauth2-proxy chart 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
-```console
-$ helm install console . \
+```shell
+$ helm install console tmax/console \
   --set=image.tag=v0.0.2,global.domain=tmaxcloud.org
 ```
 
 Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example,
 
-```console
-$ helm install console . -f values.yaml
+```shell
+$ helm install console tmax/console -values values.yaml
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
