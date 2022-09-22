@@ -2,11 +2,11 @@
 
 [hypercloud-console](https://github.com/tmax-cloud/console) 5.0 설치 가이드  
 
-## TL;DR;
+## Prerequisite
 
-```console
-$ git clone https://github.com/tmax-cloud/charts.git
-$ cd console
+```shell
+$ helm repo add tmax https://tmax-cloud.github.io/charts
+$ helm repo update
 ```
 
 ## Introduction
@@ -18,7 +18,8 @@ This chart bootstraps a console deployment on a [Kubernetes](http://kubernetes.i
 To install the chart with the release name `console` on an api-gateway-system namespace:
 
 ```console
-$ helm install console . --namespace api-gateway-system --create-namespace --wait
+$ helm show values tmax/console > value.yaml
+$ helm install console tmax/console --values value.yaml --namespace api-gateway-system --create-namespace --wait
 ```
 
 The [configuration](#configuration) section lists the parameters that can be configured during installation.
