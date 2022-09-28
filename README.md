@@ -1,3 +1,4 @@
+chart url : https://tmax-cloud.github.io/charts/
 step 1. install namespace 
 
 ```shell
