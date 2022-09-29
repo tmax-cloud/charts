@@ -1,15 +1,18 @@
 # Default values for jwt-decode-auth.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+global:
+  serviceAccount: console
+  domain: ""
+  consoleDomain: ""
+  hyperAuth:
+    address: ""
+    realm: ""
+  timeZone: ""
 
-nameOverride: "jwt-decode-auth"
 fullnameOverride: "jwt-decode-auth"
-hyperAuth:
-  address: hyperauth.tmaxcloud.org
-  realm: tmax
 middleware:
   enabled: true
-
 logInfo:
   logLevel: "debug"
   logType: "pretty"
