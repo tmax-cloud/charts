@@ -30,6 +30,8 @@ data:
               - "([a-z]+)\\.{{ (split "." .Values.tls.domain)._0 }}\\.{{ (split "." .Values.tls.domain)._1 }}"
             accessControlMaxAge: 100
             addVaryHeader: true
+            # Add for sending a request with credentials (cookie)
+            accessControlAllowCredentials: true
         hypercloud-stripprefix:
           stripPrefix:
             prefixes:

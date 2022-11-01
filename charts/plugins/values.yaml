@@ -1,0 +1,71 @@
+# Default values for console.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+global:
+  serviceAccount: "test"
+  domain: "ck1-1.link"
+  consoleDomain: "console"
+  hyperAuth:
+    address: "hyperauth.tmaxcloud.org"
+    realm: "tmax"
+  timeZone: ""
+
+console:
+  enabled: true
+  fullnameOverride: "console"
+  clientID: "hypercloud5"
+  mcMode: true
+  chatbotEmbed: true
+  logLevel: "debug"
+  logType: "pretty"
+  image:
+    repository: "docker.io/tmaxcloudck/hypercloud-console"
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "5.2.9.0"
+  imagePullSecrets: []
+  #imagePullSecrets:
+  #  - name: regcred
+  service:
+    type: ClusterIP
+    port: 31303
+
+
+oauth2proxy:
+  enabled: true
+  fullnameOverride: "oauth2-proxy"
+  config:
+    clientID: "hypercloud5"
+    clientSecret: "7119dfca-8bf6-4f7a-a147-52423769547d"
+    cookieSecret: "iM9b7w6ZkDDl4Y72oGmwZA2b5-PkFYGcIxfFTq93gSE="
+  extraArgs:
+    cookie-name: "tmaxcloudfuck"
+  sessionStorage:
+    type: redis
+    redis:
+      clientType: "standalone"
+#      password: "foo"
+  redis:
+    # provision an instance of the redis sub-chart
+    enabled: true
+#    global:
+#      redis:
+#        password: "foo"
+  image:
+    repository: "docker.io/tmaxcloudck/oauth2-proxy"
+    tag: "v7.3.0"
+    imagePullSecrets: []
+  ingressroute:
+    enabled: true
+
+jwtdecodeauth:
+  enabled: false
+  fullnameOverride: "jwt-decode-auth"
+  logInfo:
+    logLevel: "debug"
+    logType: "pretty"
+  image:
+    repository: "docker.io/tmaxcloudck/jwt-decode"
+    tag: "5.0.0.3"
+  imagePullSecrets: []
+

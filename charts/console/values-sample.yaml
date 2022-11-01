@@ -23,7 +23,7 @@ image:
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   #  tag: "oauth"
-  tag: "5.0.78.0"
+  tag: "5.2.7.0"
 imagePullSecrets: []
 #imagePullSecrets:
 #  - name: regcred
