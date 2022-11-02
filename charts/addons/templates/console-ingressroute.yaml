@@ -4,10 +4,10 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: {{ .Values.console.fullnameOverride }}
+  name: {{ include "addons.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "console.labels" . | nindent 4 }}
+    {{- include "addons.labels" . | nindent 4 }}
 spec:
   entryPoints:
     - websecure
