@@ -1,5 +1,37 @@
 apiVersion: v1
 entries:
+  addons:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-11-02T00:50:11.009261925Z"
+    dependencies:
+    - condition: console.enabled
+      name: console
+      repository: file://charts/console
+      version: 1.0.3
+    - alias: oauth2proxy
+      condition: oauth2proxy.enabled
+      name: oauth2-proxy
+      repository: file://charts/oauth2-proxy
+      version: 6.2.2
+    - alias: jwtdecodeauth
+      condition: jwtdecodeauth.enabled
+      name: jwt-decode-auth
+      repository: file://charts/jwt-decode-auth
+      version: 1.0.0
+    description: set of plugins for api-gateway-system
+    digest: ffbf6f6b2cbacf173df066763d41bbba3afd79b890ef89bd28766b2139f58d90
+    home: https://www.tmaxcloud.com/#!/home
+    maintainers:
+    - email: jinsoo_youn@tmax.co.kr
+      name: jinsoo_youn
+    name: addons
+    sources:
+    - https://github.com/tmax-cloud/console
+    type: application
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/addons-1.0.0/addons-1.0.0.tgz
+    version: 1.0.0
   applications:
   - apiVersion: v2
     appVersion: "1.0"
@@ -136,4 +168,4 @@ entries:
     urls:
     - https://github.com/tmax-cloud/charts/releases/download/namespace-1.0.0/namespace-1.0.0.tgz
     version: 1.0.0
-generated: "2022-09-22T01:36:58.762294406Z"
+generated: "2022-11-02T00:50:11.009279125Z"
