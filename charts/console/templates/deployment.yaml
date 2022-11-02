@@ -1,3 +1,105 @@
+{{- if regexMatch "5.2.1[0-9]+.[0-9]*" .Values.image.tag }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "console.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "console.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "console.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "console.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          command:
+            - /opt/bridge/bin/console
+            - --public-dir=/opt/bridge/static
+            - --listen=http://0.0.0.0:31303
+            - --base-address=http://0.0.0.0:31303
+            {{- with .Values.global }}
+            - --keycloak-realm={{ .hyperAuth.realm }}
+            - --keycloak-auth-url=https://{{ .hyperAuth.address }}/auth
+            {{- end }}
+            {{- with .Values }}
+            - --keycloak-client-id={{ .clientID }}
+            - --mc-mode={{ .mcMode | default true }}
+            - --chatbot-embed={{ .chatbotEmbed | default true }}
+            - --custom-product-name={{ .customProductName | default "hypercloud" }}
+            - --svc-type={{ .svcType | default "LoadBalancer" }}
+            - --log-level={{ .logLevel | default "debug" }}
+            - --log-type={{ .logType | default "pretty" }}
+            {{- end }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 31303
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          volumeMounts:
+            - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+              name: console-token
+              readOnly: true
+{{- if .Values.global.timeZone }}
+{{- if not (eq .Values.global.timeZone "UTC") }}
+            - mountPath: /etc/localtime
+              name: timezone-config
+{{- end }}
+{{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: console-token
+          secret:
+            defaultMode: 420
+            secretName: {{ .Values.global.serviceAccount }}
+{{- if .Values.global.timeZone }}
+{{- if not (eq .Values.global.timeZone "UTC") }}
+        - name: timezone-config
+          hostPath:
+            path: "/usr/share/zoneinfo/{{ .Values.global.timeZone }}"
+{{- end }}
+{{- end }}
+
+{{- else }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -95,4 +197,7 @@ spec:
           hostPath:
             path: "/usr/share/zoneinfo/{{ .Values.global.timeZone }}"
 {{- end }}
+{{- end }}
+
+
 {{- end }}

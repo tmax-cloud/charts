@@ -62,15 +62,13 @@ spec:
           - --metrics-address=0.0.0.0:44180
         {{- end }}
         {{- end }}
-        {{- if .Values.global.domain }}
-          - --cookie-name={{ .Values.global.domain }}
-        {{- end }}
-        {{- with .Values.global.hyperAuth }}
+          - --cookie-name={{ .Values.config.cookieName | default "tmaxcloud" }}
+          - --cookie-domain=.{{ .Values.domain }}
+        {{- with .Values.config.hyperAuth }}
           - --provider=keycloak-oidc
           - --oidc-issuer-url=https://{{ .address }}/auth/realms/{{ .realm }}
         {{- end }}
-          - --redirect-url=https://{{ .Values.global.consoleDomain }}.{{ .Values.global.domain }}/oauth2/callback
-          - --whitelist-domain={{ .Values.global.hyperAuth.address }},*.{{ .Values.global.domain }}
+          - --whitelist-domain={{ .Values.config.hyperAuth.address }},*.{{ .Values.domain }}
         {{- range $key, $value := .Values.extraArgs }}
           {{- if $value }}
           - --{{ $key }}={{ $value }}
@@ -210,12 +208,10 @@ spec:
           name: configalpha
           subPath: oauth2_proxy.yml
 {{- end }}
-{{- if .Values.global.timeZone }}
-{{- if not (eq .Values.global.timeZone "UTC") }}
+{{- if ne .Values.timeZone "UTC" }}
         - mountPath: /etc/localtime
           name: timezone-config
           readOnly: true
-{{- end }}
 {{- end }}
 {{- if .Values.authenticatedEmailsFile.enabled }}
         - mountPath: /etc/oauth2-proxy
@@ -239,13 +235,11 @@ spec:
       - name: console-token
         secret:
           defaultMode: 420
-          secretName: {{ .Values.global.serviceAccount }}
-{{- if .Values.global.timeZone }}
-{{- if not (eq .Values.global.timeZone "UTC") }}
+          secretName: {{ template "oauth2-proxy.serviceAccountName" . }}
+{{- if ne .Values.timeZone "UTC" }}
       - name: timezone-config
         hostPath:
           path: "/usr/share/zoneinfo/{{ .Values.global.timeZone }}"
-{{- end }}
 {{- end }}
 {{- with .Values.config.google }}
 {{- if and .adminEmail (or .serviceAccountJson .existingSecret) }}
