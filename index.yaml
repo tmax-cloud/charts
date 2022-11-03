@@ -2,6 +2,22 @@ apiVersion: v1
 entries:
   console:
   - apiVersion: v2
+    appVersion: 5.2.9.0
+    created: "2022-11-03T06:31:17.860440364Z"
+    description: A console
+    digest: aa4a51d77cc830ee3bbdf2cb605205a88d099dd3717447b6796faaef63fd5720
+    home: https://www.tmaxcloud.com/#!/home
+    maintainers:
+    - email: jinsoo_youn@tmax.co.kr
+      name: jinsoo_youn
+    name: console
+    sources:
+    - https://github.com/tmax-cloud/console
+    type: application
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/console-1.0.3/console-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v2
     appVersion: 5.2.0.0
     created: "2022-09-22T01:36:58.762271906Z"
     dependencies:
@@ -145,4 +161,4 @@ entries:
     urls:
     - https://github.com/tmax-cloud/charts/releases/download/namespace-1.0.0/namespace-1.0.0.tgz
     version: 1.0.0
-generated: "2022-11-03T06:04:40.121229438Z"
+generated: "2022-11-03T06:31:17.860454765Z"
