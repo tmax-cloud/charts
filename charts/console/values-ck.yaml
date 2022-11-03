@@ -3,13 +3,13 @@
 # Declare variables to be passed into your templates.
 fullnameOverride: "console"
 
-domain: ""
+domain: "tmaxcloud.org"
 subDomain: "console"
 timeZone: "UTC"
 
 config:
   hyperAuth:
-    address: ""
+    address: "hyperauth.tmaxcloud.org"
     realm: "tmax"
     clientID: "hypercloud5"
   mcMode: true
