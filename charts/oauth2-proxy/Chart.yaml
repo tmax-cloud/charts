@@ -7,26 +7,8 @@ dependencies:
   repository: file://charts/redis
   version: 16.4.5
 description: A reverse proxy that provides authentication with Google, Github or other providers
-home: https://oauth2-proxy.github.io/oauth2-proxy/
-keywords:
-- kubernetes
-- oauth
-- oauth2
-- authentication
-- google
-- github
-- redis
+home: https://tmax-cloud.github.io/charts/
 kubeVersion: '>=1.9.0-0'
-maintainers:
-- email: cedric@desaintmartin.fr
-  name: desaintmartin
-- name: tlawrie
-- email: nicholas.meves@gmail.com
-  name: NickMeves
-- email: joel.speed@hotmail.co.uk
-  name: JoelSpeed
-- email: pierluigi.lenoci@gmail.com
-  name: pierluigilenoci
 name: oauth2-proxy
 sources:
 - https://github.com/oauth2-proxy/oauth2-proxy
