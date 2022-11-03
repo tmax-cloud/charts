@@ -13,3 +13,6 @@ kubeVersion: '>=1.9.0-0'
 name: oauth2-proxy
 sources:
 - https://github.com/oauth2-proxy/oauth2-proxy
+maintainers:
+  - name: jinsoo_youn
+    email: jinsoo_youn@tmax.co.kr
