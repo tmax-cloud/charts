@@ -3,6 +3,22 @@ entries:
   console:
   - apiVersion: v2
     appVersion: 5.2.9.0
+    created: "2022-11-03T08:00:12.859522204Z"
+    description: A console
+    digest: 7a1ad18ab413386873c08d634fcc0d10dcb023d8d2f5aba830d56c13609c6d9f
+    home: https://www.tmaxcloud.com/#!/home
+    maintainers:
+    - email: jinsoo_youn@tmax.co.kr
+      name: jinsoo_youn
+    name: console
+    sources:
+    - https://github.com/tmax-cloud/console
+    type: application
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/console-1.0.4/console-1.0.4.tgz
+    version: 1.0.4
+  - apiVersion: v2
+    appVersion: 5.2.9.0
     created: "2022-11-03T06:31:17.860440364Z"
     description: A console
     digest: aa4a51d77cc830ee3bbdf2cb605205a88d099dd3717447b6796faaef63fd5720
@@ -161,4 +177,27 @@ entries:
     urls:
     - https://github.com/tmax-cloud/charts/releases/download/namespace-1.0.0/namespace-1.0.0.tgz
     version: 1.0.0
-generated: "2022-11-03T06:31:17.860454765Z"
+  oauth2-proxy:
+  - apiVersion: v2
+    appVersion: 7.3.0
+    created: "2022-11-03T08:00:13.089237443Z"
+    dependencies:
+    - alias: redis
+      condition: redis.enabled
+      name: redis
+      repository: file://charts/redis
+      version: 16.4.5
+    description: A reverse proxy that provides authentication with Hyperauth (keycloak)
+    digest: 61f17d32ae88c39d156ab2a93753af88ca054a4d213a93a911e1759c9b83bbf3
+    home: https://tmax-cloud.github.io/charts/
+    kubeVersion: '>=1.9.0-0'
+    maintainers:
+    - email: jinsoo_youn@tmax.co.kr
+      name: jinsoo_youn
+    name: oauth2-proxy
+    sources:
+    - https://github.com/oauth2-proxy/oauth2-proxy
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/oauth2-proxy-1.0.0/oauth2-proxy-1.0.0.tgz
+    version: 1.0.0
+generated: "2022-11-03T08:00:13.089287542Z"
