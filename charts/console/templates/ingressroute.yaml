@@ -1,130 +1,4 @@
-{{- if and .Values.console.enabled }}
-
-{{- if and (regexMatch "5.[2-9].[0-9]*.[0-9]*" (.Values.console.image.tag | default "5.2.10.0")) .Values.oauth2proxy.enabled }}
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-  name: {{ include "addons.fullname" . }}
-  namespace: {{ .Release.Namespace }}
-  labels:
-    {{- include "addons.labels" . | nindent 4 }}
-spec:
-  entryPoints:
-    - websecure
-  routes:
-    - kind: Rule
-      {{- if .Values.global.domain }}
-      match: PathPrefix(`/`, `/static/`, `/api/resource/`, `/api/console/`) && Host(`{{ .Values.global.consoleDomain }}.{{ .Values.global.domain }}`)
-      {{- else }}
-      match: PathPrefix(`/`, `/static/`, `/api/resource/`, `/api/console/`)
-      {{- end }}
-      priority: 10
-      middlewares:
-        - name: {{ .Release.Namespace }}-{{ .Values.oauth2proxy.fullnameOverride }}-forwardauth@kubernetescrd
-      services:
-        - name: {{ .Values.console.fullnameOverride }}
-          namespace: {{ .Release.Namespace }}
-          kind: Service
-          port: http
-    - kind: Rule
-      {{- if .Values.global.domain }}
-      match: PathPrefix(`/oauth2/`) && Host(`{{ .Values.global.consoleDomain }}.{{ .Values.global.domain }}`)
-      {{- else }}
-      match: PathPrefix(`/oauth2/`)
-      {{- end }}
-      middlewares:
-        - name: {{ .Release.Namespace }}-{{ .Values.oauth2proxy.fullnameOverride }}-headers@kubernetescrd
-      priority: 80
-      services:
-        - kind: Service
-          name: {{ .Values.oauth2proxy.fullnameOverride }}
-          namespace: {{ .Release.Namespace }}
-          port: 80
-          scheme: http
-    - kind: Rule
-      {{- if .Values.global.domain }}
-      match: PathPrefix(`/api/hypercloud`, `/api/multi-hypercloud`,`/api/webhook`) && Host(`{{ .Values.global.consoleDomain }}.{{ .Values.global.domain }}`)
-      {{- else }}
-      match: PathPrefix(`/api/hypercloud`, `/api/multi-hypercloud`,`/api/webhook`)
-      {{- end }}
-      priority: 100
-      middlewares:
-        - name: {{ .Release.Namespace }}-{{ .Values.oauth2proxy.fullnameOverride }}-forwardauth@kubernetescrd
-        - name: hypercloud-stripprefix@file
-      services:
-        - kind: Service
-          name: hypercloud5-api-server-service
-          namespace: hypercloud5-system
-          port: https
-          scheme: https
-          serversTransport: insecure@file
-    - kind: Rule
-      {{- if .Values.global.domain }}
-      match: PathPrefix(`/api/kubernetes`) && Host(`{{ .Values.global.consoleDomain }}.{{ .Values.global.domain }}`)
-      {{- else }}
-      match: PathPrefix(`/api/kubernetes`)
-      {{- end }}
-      priority: 100
-      middlewares:
-        - name: {{ .Release.Namespace }}-{{ .Values.oauth2proxy.fullnameOverride }}-forwardauth@kubernetescrd
-        - name: kubernetes-stripprefix@file
-      services:
-        - kind: Service
-          name: kubernetes
-          namespace: default
-          port: https
-          scheme: https
-          serversTransport: kubernetes@file
-    - kind: Rule
-      {{- if .Values.global.domain }}
-      match: PathPrefix(`/api/prometheus-tenancy/api`) && Host(`{{ .Values.global.consoleDomain }}.{{ .Values.global.domain }}`)
-      {{- else }}
-      match: PathPrefix(`/api/prometheus-tenancy/api`)
-      {{- end }}
-      priority: 100
-      middlewares:
-        - name: {{ .Release.Namespace }}-{{ .Values.oauth2proxy.fullnameOverride }}-forwardauth@kubernetescrd
-        - name: monitoring-stripprefix-tenancy@file
-      services:
-        - kind: Service
-          name: prometheus-k8s
-          namespace: monitoring
-          port: web
-          scheme: http
-    - kind: Rule
-      {{- if .Values.global.domain }}
-      match: PathPrefix(`/api/prometheus/api`) && Host(`{{ .Values.global.consoleDomain }}.{{ .Values.global.domain }}`)
-      {{- else }}
-      match: PathPrefix(`/api/prometheus/api`)
-      {{- end }}
-      priority: 100
-      middlewares:
-        - name: {{ .Release.Namespace }}-{{ .Values.oauth2proxy.fullnameOverride }}-forwardauth@kubernetescrd
-        - name: monitoring-stripprefix@file
-      services:
-        - kind: Service
-          name: prometheus-k8s
-          namespace: monitoring
-          port: web
-          scheme: http
-    - kind: Rule
-      {{- if .Values.global.domain }}
-      match: PathPrefix(`/api/alertmanager/api`) && Host(`{{ .Values.global.consoleDomain }}.{{ .Values.global.domain }}`)
-      {{- else }}
-      match: PathPrefix(`/api/alertmanager/api`)
-      {{- end }}
-      priority: 100
-      middlewares:
-        - name: {{ .Release.Namespace }}-{{ .Values.oauth2proxy.fullnameOverride }}-forwardauth@kubernetescrd
-        - name: monitoring-stripprefix@file
-      services:
-        - kind: Service
-          name: alertmanager-main
-          namespace: monitoring
-          port: web
-          scheme: http
-  tls: {} # use default tls
-{{- else if and (regexMatch "5.0.[0-9]*.[0-9]*" (.Values.console.image.tag | default .Chart.AppVersion)) .Values.jwtdecodeauth.enabled  }}
+{{- if regexMatch "5.[2-9].[0-9]*.[0-9]*" (.Values.image.tag | default "5.2.10.0") }}
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
@@ -137,8 +11,135 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      {{- if .Values.global.domain }}
-      match: PathPrefix(`/`, `/static/`, `/api/resource/`, `/api/console/`) && Host(`{{ .Values.global.consoleDomain }}.{{ .Values.global.domain }}`)
+      {{- if .Values.domain }}
+      match: PathPrefix(`/`, `/static/`, `/api/resource/`, `/api/console/`) && Host(`{{ .Values.subDomain }}.{{ .Values.domain }}`)
+      {{- else }}
+      match: PathPrefix(`/`, `/static/`, `/api/resource/`, `/api/console/`)
+      {{- end }}
+      priority: 10
+      middlewares:
+        - name: api-gateway-system-oauth2-proxy-forwardauth@kubernetescrd
+      services:
+        - name: {{ .Values.fullnameOverride }}
+          namespace: {{ .Release.Namespace }}
+          kind: Service
+          port: http
+    - kind: Rule
+      {{- if .Values.domain }}
+      match: PathPrefix(`/oauth2/`) && Host(`{{ .Values.subDomain }}.{{ .Values.domain }}`)
+      {{- else }}
+      match: PathPrefix(`/oauth2/`)
+      {{- end }}
+      middlewares:
+        - name: api-gateway-system-oauth2-proxy-headers@kubernetescrd
+      priority: 80
+      services:
+        - kind: Service
+          name: oauth2-proxy
+          namespace: api-gateway-system
+          port: 80
+          scheme: http
+    - kind: Rule
+      {{- if .Values.domain }}
+      match: PathPrefix(`/api/hypercloud`, `/api/multi-hypercloud`,`/api/webhook`) && Host(`{{ .Values.subDomain }}.{{ .Values.domain }}`)
+      {{- else }}
+      match: PathPrefix(`/api/hypercloud`, `/api/multi-hypercloud`,`/api/webhook`)
+      {{- end }}
+      priority: 100
+      middlewares:
+        - name: api-gateway-system-oauth2-proxy-forwardauth@kubernetescrd # Use Defalt oauth2-porxy
+        - name: hypercloud-stripprefix@file
+      services:
+        - kind: Service
+          name: hypercloud5-api-server-service
+          namespace: hypercloud5-system
+          port: https
+          scheme: https
+          serversTransport: insecure@file
+    - kind: Rule
+      {{- if .Values.domain }}
+      match: PathPrefix(`/api/kubernetes`) && Host(`{{ .Values.subDomain }}.{{ .Values.domain }}`)
+      {{- else }}
+      match: PathPrefix(`/api/kubernetes`)
+      {{- end }}
+      priority: 100
+      middlewares:
+        - name: api-gateway-system-oauth2-proxy-forwardauth@kubernetescrd # Use Defalt oauth2-porxy
+        - name: kubernetes-stripprefix@file
+      services:
+        - kind: Service
+          name: kubernetes
+          namespace: default
+          port: https
+          scheme: https
+          serversTransport: kubernetes@file
+    - kind: Rule
+      {{- if .Values.domain }}
+      match: PathPrefix(`/api/prometheus-tenancy/api`) && Host(`{{ .Values.subDomain }}.{{ .Values.domain }}`)
+      {{- else }}
+      match: PathPrefix(`/api/prometheus-tenancy/api`)
+      {{- end }}
+      priority: 100
+      middlewares:
+        - name: api-gateway-system-oauth2-proxy-forwardauth@kubernetescrd # Use Defalt oauth2-porxy
+        - name: monitoring-stripprefix-tenancy@file
+      services:
+        - kind: Service
+          name: prometheus-k8s
+          namespace: monitoring
+          port: web
+          scheme: http
+    - kind: Rule
+      {{- if .Values.domain }}
+      match: PathPrefix(`/api/prometheus/api`) && Host(`{{ .Values.subDomain }}.{{ .Values.domain }}`)
+      {{- else }}
+      match: PathPrefix(`/api/prometheus/api`)
+      {{- end }}
+      priority: 100
+      middlewares:
+        - name: api-gateway-system-oauth2-proxy-forwardauth@kubernetescrd # Use Defalt oauth2-porxy
+        - name: monitoring-stripprefix@file
+      services:
+        - kind: Service
+          name: prometheus-k8s
+          namespace: monitoring
+          port: web
+          scheme: http
+    - kind: Rule
+      {{- if .Values.domain }}
+      match: PathPrefix(`/api/alertmanager/api`) && Host(`{{ .Values.subDomain }}.{{ .Values.domain }}`)
+      {{- else }}
+      match: PathPrefix(`/api/alertmanager/api`)
+      {{- end }}
+      priority: 100
+      middlewares:
+        - name: api-gateway-system-oauth2-proxy-forwardauth@kubernetescrd # Use Defalt oauth2-porxy
+        - name: monitoring-stripprefix@file
+      services:
+        - kind: Service
+          name: alertmanager-main
+          namespace: monitoring
+          port: web
+          scheme: http
+  tls: {} # use default tls
+
+
+{{- else if regexMatch "5.0.[0-9]*.[0-9]*" (.Values.console.image.tag | default .Chart.AppVersion)  }}
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ include "console.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "console.labels" . | nindent 4 }}
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      {{- if .Values.domain }}
+      match: PathPrefix(`/`, `/static/`, `/api/resource/`, `/api/console/`) && Host(`{{ .Values.subDomain }}.{{ .Values.domain }}`)
       {{- else }}
       match: PathPrefix(`/`, `/static/`, `/api/resource/`, `/api/console/`)
       {{- end }}
@@ -149,14 +150,14 @@ spec:
           kind: Service
           port: http
     - kind: Rule
-      {{- if .Values.global.domain }}
-      match: PathPrefix(`/`, `/static/`, `/api/resource/`, `/api/console/`) && Host(`{{ .Values.global.consoleDomain }}.{{ .Values.global.domain }}`)
+      {{- if .Values.domain }}
+      match: PathPrefix(`/`, `/static/`, `/api/resource/`, `/api/console/`) && Host(`{{ .Values.subDomain }}.{{ .Values.domain }}`)
       {{- else }}
       match: PathPrefix(`/`, `/static/`, `/api/resource/`, `/api/console/`)
       {{- end }}
       priority: 100
       middlewares:
-        - name: {{ .Release.Namespace }}-{{ .Values.jwtdecodeauth.fullnameOverride }}@kubernetescrd
+        - name: api-gateway-system-jwt-decode-auth@kubernetescrd
         - name: hypercloud-stripprefix@file
       services:
         - kind: Service
@@ -166,14 +167,14 @@ spec:
           scheme: https
           serversTransport: insecure@file
     - kind: Rule
-      {{- if .Values.global.domain }}
-      match: PathPrefix(`/`, `/static/`, `/api/resource/`, `/api/console/`) && Host(`{{ .Values.global.consoleDomain }}.{{ .Values.global.domain }}`)
+      {{- if .Values.domain }}
+      match: PathPrefix(`/`, `/static/`, `/api/resource/`, `/api/console/`) && Host(`{{ .Values.subDomain }}.{{ .Values.domain }}`)
       {{- else }}
       match: PathPrefix(`/`, `/static/`, `/api/resource/`, `/api/console/`)
       {{- end }}
       priority: 100
       middlewares:
-        - name: {{ .Release.Namespace }}-{{ .Values.jwtdecodeauth.fullnameOverride }}@kubernetescrd
+        - name: api-gateway-system-jwt-decode-auth@kubernetescrd
         - name: kubernetes-stripprefix@file
       services:
         - kind: Service
@@ -183,14 +184,14 @@ spec:
           scheme: https
           serversTransport: kubernetes@file
     - kind: Rule
-      {{- if .Values.global.domain }}
-      match: PathPrefix(`/`, `/static/`, `/api/resource/`, `/api/console/`) && Host(`{{ .Values.global.consoleDomain }}.{{ .Values.global.domain }}`)
+      {{- if .Values.domain }}
+      match: PathPrefix(`/`, `/static/`, `/api/resource/`, `/api/console/`) && Host(`{{ .Values.subDomain }}.{{ .Values.domain }}`)
       {{- else }}
       match: PathPrefix(`/`, `/static/`, `/api/resource/`, `/api/console/`)
       {{- end }}
       priority: 100
       middlewares:
-        - name: {{ .Release.Namespace }}-{{ .Values.jwtdecodeauth.fullnameOverride }}@kubernetescrd
+        - name: api-gateway-system-jwt-decode-auth@kubernetescrd
         - name: monitoring-stripprefix-tenancy@file
       services:
         - kind: Service
@@ -199,14 +200,14 @@ spec:
           port: web
           scheme: http
     - kind: Rule
-      {{- if .Values.global.domain }}
-      match: PathPrefix(`/`, `/static/`, `/api/resource/`, `/api/console/`) && Host(`{{ .Values.global.consoleDomain }}.{{ .Values.global.domain }}`)
+      {{- if .Values.domain }}
+      match: PathPrefix(`/`, `/static/`, `/api/resource/`, `/api/console/`) && Host(`{{ .Values.subDomain }}.{{ .Values.domain }}`)
       {{- else }}
       match: PathPrefix(`/`, `/static/`, `/api/resource/`, `/api/console/`)
       {{- end }}
       priority: 100
       middlewares:
-        - name: {{ .Release.Namespace }}-{{ .Values.jwtdecodeauth.fullnameOverride }}@kubernetescrd
+        - name: api-gateway-system-jwt-decode-auth@kubernetescrd
         - name: monitoring-stripprefix@file
       services:
         - kind: Service
@@ -215,14 +216,14 @@ spec:
           port: web
           scheme: http
     - kind: Rule
-      {{- if .Values.global.domain }}
-      match: PathPrefix(`/`, `/static/`, `/api/resource/`, `/api/console/`) && Host(`{{ .Values.global.consoleDomain }}.{{ .Values.global.domain }}`)
+      {{- if .Values.domain }}
+      match: PathPrefix(`/`, `/static/`, `/api/resource/`, `/api/console/`) && Host(`{{ .Values.subDomain }}.{{ .Values.domain }}`)
       {{- else }}
       match: PathPrefix(`/`, `/static/`, `/api/resource/`, `/api/console/`)
       {{- end }}
       priority: 100
       middlewares:
-        - name: {{ .Release.Namespace }}-{{ .Values.jwtdecodeauth.fullnameOverride }}@kubernetescrd
+        - name: api-gateway-system-jwt-decode-auth@kubernetescrd
         - name: monitoring-stripprefix@file
       services:
         - kind: Service
@@ -231,5 +232,4 @@ spec:
           port: web
           scheme: http
   tls: {} # use default tls
-{{- end }}
 {{- end }}

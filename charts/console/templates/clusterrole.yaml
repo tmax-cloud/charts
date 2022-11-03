@@ -1,9 +1,9 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: {{ include "addons.fullname" . }}
+  name: {{ include "console.fullname" . }}
   labels:
-  {{- include "addons.labels" . | nindent 4 }}
+  {{- include "console.labels" . | nindent 4 }}
 rules:
   - apiGroups:
       - ""

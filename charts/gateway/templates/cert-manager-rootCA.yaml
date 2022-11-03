@@ -5,7 +5,7 @@ kind: ClusterIssuer
 metadata:
   labels:
     {{- include "gateway.labels" . | nindent 4 }}
-  name: tmaxcloud-selfsigned
+  name: tmaxcloud-ca-selfsigned
 spec:
   selfSigned: {}
 ---
@@ -16,20 +16,22 @@ metadata:
     {{- include "gateway.labels" . | nindent 4 }}
   name: tmaxcloud-ca
 spec:
-  commonName: tmaxcloud
-  duration: 8760h0m0s # 360d=1y
   isCA: true
+  commonName: tmax-cloud
+  secretName: tmaxcloud-ca
+  duration: 8760h0m0s # 360d=1y
+  renewBefore: 720h0m0s # 30d
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS1
+    size: 2048
+  usages:
+  - digital signature
+  - key encipherment
   issuerRef:
-    name: tmaxcloud-selfsigned
+    name: tmaxcloud-ca-selfsigned
     kind: ClusterIssuer
     group: cert-manager.io
-  renewBefore: 720h0m0s # 30d
-  secretName: tmaxcloud-ca
-  usages:
-    - digital signature
-    - key encipherment
-    - server auth
-    - client auth
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer

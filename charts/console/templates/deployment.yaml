@@ -33,12 +33,10 @@ spec:
             - --public-dir=/opt/bridge/static
             - --listen=http://0.0.0.0:31303
             - --base-address=http://0.0.0.0:31303
-            {{- with .Values.global }}
+            {{- with .Values.config }}
             - --keycloak-realm={{ .hyperAuth.realm }}
             - --keycloak-auth-url=https://{{ .hyperAuth.address }}/auth
-            {{- end }}
-            {{- with .Values }}
-            - --keycloak-client-id={{ .clientID }}
+            - --keycloak-client-id={{ .hyperAuth.clientID }}
             - --mc-mode={{ .mcMode | default true }}
             - --chatbot-embed={{ .chatbotEmbed | default true }}
             - --custom-product-name={{ .customProductName | default "hypercloud" }}
@@ -66,12 +64,10 @@ spec:
             - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
               name: console-token
               readOnly: true
-{{- if .Values.global.timeZone }}
-{{- if not (eq .Values.global.timeZone "UTC") }}
+            {{- if ne .Values.global.timeZone "UTC" }}
             - mountPath: /etc/localtime
               name: timezone-config
-{{- end }}
-{{- end }}
+            {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
@@ -90,14 +86,12 @@ spec:
         - name: console-token
           secret:
             defaultMode: 420
-            secretName: {{ .Values.global.serviceAccount }}
-{{- if .Values.global.timeZone }}
-{{- if not (eq .Values.global.timeZone "UTC") }}
+            secretName: {{ template "console.serviceAccountName"}}
+        {{- if ne .Values.timeZone "UTC" }}
         - name: timezone-config
           hostPath:
-            path: "/usr/share/zoneinfo/{{ .Values.global.timeZone }}"
-{{- end }}
-{{- end }}
+            path: "/usr/share/zoneinfo/{{ .Values.timeZone }}"
+        {{- end }}
 
 {{- else }}
 apiVersion: apps/v1
@@ -135,16 +129,14 @@ spec:
             - --public-dir=/opt/bridge/static
             - --listen=http://0.0.0.0:31303
             - --base-address=http://0.0.0.0:31303
-            {{- with .Values.global }}
+            {{- with .Values.config }}
             - --keycloak-realm={{ .hyperAuth.realm }}
             - --keycloak-auth-url=https://{{ .hyperAuth.address }}/auth
-            {{- end }}
-            {{- with .Values.console }}
-            - --keycloak-client-id={{ .clientID }}
+            - --keycloak-client-id={{ .hyperAuth.clientID }}
             - --mc-mode={{ .mcMode | default true }}
             - --app.chatbotEmbed={{ .chatbotEmbed | default true }}
-            - --logInfo.logLevel={{ .logInfo.logLevel | default "debug" }}
-            - --logInfo.logType={{ .logInfo.logType | default "pretty" }}
+            - --logInfo.logLevel={{ .logLevel | default "debug" }}
+            - --logInfo.logType={{ .logType | default "pretty" }}
             {{- end }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
@@ -166,12 +158,10 @@ spec:
             - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
               name: console-token
               readOnly: true
-{{- if .Values.global.timeZone }}
-{{- if not (eq .Values.global.timeZone "UTC") }}
+            {{- if ne .Values.timeZone "UTC" }}
             - mountPath: /etc/localtime
               name: timezone-config
-{{- end }}
-{{- end }}
+            {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
@@ -190,14 +180,10 @@ spec:
         - name: console-token
           secret:
             defaultMode: 420
-            secretName: {{ .Values.global.serviceAccount }}
-{{- if .Values.global.timeZone }}
-{{- if not (eq .Values.global.timeZone "UTC") }}
+            secretName: {{ template "console.serviceAccountName" . }}
+        {{- if ne .Values.timeZone "UTC" }}
         - name: timezone-config
           hostPath:
-            path: "/usr/share/zoneinfo/{{ .Values.global.timeZone }}"
-{{- end }}
-{{- end }}
-
-
+            path: "/usr/share/zoneinfo/{{ .Values.timeZone }}"
+        {{- end }}
 {{- end }}

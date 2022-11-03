@@ -5,7 +5,7 @@ kubeVersion:
 
 fullnameOverride: "oauth2-proxy"
 
-domain: "tmaxcloud.org"
+domain: "ck1-1.link"
 timeZone: "UTC"
 # Oauth client configuration specifics
 config:
