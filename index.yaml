@@ -85,6 +85,26 @@ entries:
   gateway:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2022-11-03T06:04:40.121212238Z"
+    dependencies:
+    - alias: certmanager
+      condition: certmanager.enabled
+      name: cert-manager
+      repository: file://charts/cert-manager
+      version: v1.5.4
+    - condition: traefik.enabled
+      name: traefik
+      repository: file://charts/traefik
+      version: 10.24.0
+    description: A Helm chart for Kubernetes
+    digest: 7d2d826d37cede45399599db7d5919a99230d2cbe7b4e41a95f5c46c1b99d09a
+    name: gateway
+    type: application
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/gateway-1.0.1/gateway-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2022-09-15T03:58:01.699774824Z"
     dependencies:
     - alias: certmanager
@@ -125,4 +145,4 @@ entries:
     urls:
     - https://github.com/tmax-cloud/charts/releases/download/namespace-1.0.0/namespace-1.0.0.tgz
     version: 1.0.0
-generated: "2022-11-02T00:50:11.009279125Z"
+generated: "2022-11-03T06:04:40.121229438Z"
