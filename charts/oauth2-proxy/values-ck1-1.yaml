@@ -3,8 +3,10 @@
 # due to the fact that it doesn't query an actual cluster
 kubeVersion:
 
-fullnameOverride: ""
+fullnameOverride: "oauth2-proxy"
 
+domain: "ck1-1.link"
+timeZone: "UTC"
 # Oauth client configuration specifics
 config:
   # Add config annotations
@@ -22,49 +24,107 @@ config:
   cookieSecret: "iM9b7w6ZkDDl4Y72oGmwZA2b5-PkFYGcIxfFTq93gSE="
   # The name of the cookie that oauth2-proxy will create
   # If left empty, it will default to the release name
+  #   redis bugfix https://github.com/oauth2-proxy/oauth2-proxy/issues/978
+  #   cookie name에 . 이 들어가면 안됌
   cookieName: "tmaxcloud"
   google: {}
     # adminEmail: xxxx
     # serviceAccountJson: xxxx
-  # Alternatively, use an existing secret (see google-secret.yaml for required fields)
-  # Example:
-  # existingSecret: google-secret
-  # Default configuration, to be overridden
-#  redirectUrl: "https://console.tmaxcloud.org/oauth2/callback"
+  # hyperauth address, realm for OIDC
   # hyperauth: {}
   hyperAuth:
     address: hyperauth.tmaxcloud.org
     realm: tmax
-#  configFile:
+  configFile:
 #  configFile: |-
 #    email_domains=[ "*" ]
 #    upstreams=[ "static://202" ]
 #    reverse_proxy=true
+#    skip_provider_button=true
+#    set_authorization_header=true
 #    provider="keycloak-oidc"
 #    oidc_issuer_url="https://hyperauth.tmaxcloud.org/auth/realms/tmax"
 #    cookie_secure=true
 #    redirect_url="https://oauth2-helm.tmaxcloud.org/oauth2/callback"
-#    skip_provider_button=true
 #    set_xauthrequest=true
-#    set_authorization_header=true
 #    pass_authorization_header=true
 #    pass_access_token=true
 #    scope=["openid" "profile" "email" "groups"]
 extraArgs:
+  skip-provider-button: true
   email-domain: "*"
   upstream: "static://202"
   reverse-proxy: true
+  set-authorization-header: true
+  cookie-secure: true
+  cookie-samesite: "none"
+  cookie-httponly: true
   #  provider: "keycloak-oidc"
   #  oidc-issuer-url: "https://hyperauth.tmaxcloud.org/auth/realms/tmax"
-  cookie-secure: true
-  skip-provider-button: true
-  set-authorization-header: true
   #  set-xauthrequest: true
   #  pass-authorization-header: true
   #  pass-access-token: true
-  scope: "openid profile email groups"
-extraEnv: []
+  #  scope: "openid profile email groups"
+image:
+  repository: "docker.io/tmaxcloudck/oauth2-proxy"
+  tag: "v7.3.0"
+  pullPolicy: "IfNotPresent"
+  # Optionally specify an array of imagePullSecrets.
+  # Secrets must be manually created in the namespace.
+  # ref: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
+  imagePullSecrets: []
+#  - name: myRegistryKeySecretName
+## Create or use ServiceAccount
+serviceAccount:
+  ## Specifies whether a ServiceAccount should be created
+  enabled: true
+  ## The name of the ServiceAccount to use.
+  ## If not set and create is true, a name is generated using the fullname template
+  name: oauth2-proxy-sa
+  annotations: {}
+# Create Ingressroute and middleware for OIDC client
+ingressroute:
+  enabled: true
+# Configure the session storage type, between cookie and redis
+sessionStorage:
+  # Can be one of the supported session storage cookie/redis
+  type: redis
+  redis:
+    # Secret name that holds the redis-password and redis-sentinel-password values
+    existingSecret: ""
+    password: ""
+    # Can be one of sentinel/cluster/standalone
+    clientType: "standalone"
+    standalone:
+      # If empty and sessionStorage type is redis, will automatically be generated.
+      connectionUrl: ""
+    cluster:
+      # connectionUrls: ["redis://127.0.0.1:8000", "redis://127.0.0.1:8000"]
+      connectionUrls: []
+    sentinel:
+      password: ""
+      masterName: ""
+      # connectionUrls: ["redis://127.0.0.1:8000", "redis://127.0.0.1:8000"]
+      connectionUrls: []
 
+# Enables and configure the automatic deployment of the redis subchart
+redis:
+  # provision an instance of the redis sub-chart
+  enabled: true
+  replica:
+    replicaCount: 1
+    persistence:
+      size: 100Mi
+  master:
+    persistence:
+      size: 100Mi
+  # Redis specific helm chart settings, please see:
+  # https://github.com/bitnami/charts/tree/master/bitnami/redis#parameters
+  # redisPort: 6379
+  # cluster:
+  #   enabled: false
+  #   slaveCount: 1
+extraEnv: []
 alphaConfig:
   enabled: false
   # Add config annotations
@@ -77,21 +137,8 @@ alphaConfig:
   configData: {}
   # Use an existing config map (see configmap-alpha.yaml for required fields)
 #  existingConfig: {}
-
-image:
-  repository: "docker.io/tmaxcloudck/oauth2-proxy"
-  tag: "v7.3.0"
-  pullPolicy: "IfNotPresent"
-
-  # Optionally specify an array of imagePullSecrets.
-  # Secrets must be manually created in the namespace.
-  # ref: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
-  imagePullSecrets: []
-#  - name: myRegistryKeySecretName
-
 # -- Custom labels to add into metadata
 customLabels: {}
-
 # To authorize individual email addresses
 # That is part of extraArgs but since this needs special treatment we need to do a separate section
 authenticatedEmailsFile:
@@ -127,18 +174,6 @@ service:
   portNumber: 80
   annotations: {}
   # foo.io/bar: "true"
-
-## Create or use ServiceAccount
-serviceAccount:
-  ## Specifies whether a ServiceAccount should be created
-  enabled: true
-  ## The name of the ServiceAccount to use.
-  ## If not set and create is true, a name is generated using the fullname template
-  name:
-  annotations: {}
-
-ingressroute:
-  enabled: true
 
 ingress:
   enabled: false
@@ -259,47 +294,6 @@ htpasswdFile:
   # example:
   # entries:
   #  - testuser:{SHA}EWhzdhgoYJWy0z2gyzhRYlN9DSiv
-
-# Configure the session storage type, between cookie and redis
-sessionStorage:
-  # Can be one of the supported session storage cookie/redis
-  type: cookie
-  redis:
-    # Secret name that holds the redis-password and redis-sentinel-password values
-    existingSecret: ""
-    password: ""
-    # Can be one of sentinel/cluster/standalone
-    clientType: "standalone"
-    standalone:
-      # If empty and sessionStorage type is redis, will automatically be generated.
-      connectionUrl: ""
-    cluster:
-      # connectionUrls: ["redis://127.0.0.1:8000", "redis://127.0.0.1:8000"]
-      connectionUrls: []
-    sentinel:
-      password: ""
-      masterName: ""
-      # connectionUrls: ["redis://127.0.0.1:8000", "redis://127.0.0.1:8000"]
-      connectionUrls: []
-
-# Enables and configure the automatic deployment of the redis subchart
-redis:
-  # provision an instance of the redis sub-chart
-  enabled: false
-  #replica:
-  #  replicaCount: 1
-  #  persistence:
-  #    size: 100Mi
-  #master:
-  #  persistence:
-  #    size: 100Mi
-
-  # Redis specific helm chart settings, please see:
-  # https://github.com/bitnami/charts/tree/master/bitnami/redis#parameters
-  # redisPort: 6379
-  # cluster:
-  #   enabled: false
-  #   slaveCount: 1
 
 # Enables apiVersion deprecation checks
 checkDeprecation: true

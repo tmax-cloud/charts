@@ -20,10 +20,9 @@ data:
       middlewares:
         cors-header:
           headers:
-            accessControlAllowMethods:
-              - "*"
-            accessControlAllowHeaders:
-              - "*"
+            accessControlAllowMethods: [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ]
+            ## https://github.com/traefik/traefik/issues/8961
+            accessControlAllowHeaders: [ "Accept", "Authorization", "Content-Type", "Locatee-Smart-Signage-Token", "Origin" ]
             # accessControlAllowOriginList:
             #   - "https://console.{{ .Values.tls.domain }}"
             accessControlAllowOriginListRegex:

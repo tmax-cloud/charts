@@ -1,20 +1,9 @@
 apiVersion: v2
 name: console
-description: A console with oauth2-proxy and jwt-decode
+description: A console
 type: application
-version: 1.0.2
-appVersion: "5.2.0.0"
-dependencies:
-  - name: oauth2-proxy
-    version: 6.2.2
-    repository: file://charts/oauth2-proxy
-    alias: oauth2proxy
-    condition: oauth2proxy.enabled
-  - name: jwt-decode-auth
-    version: 1.0.0
-    repository: file://charts/jwt-decode-auth
-    alias: jwtdecodeauth
-    condition: jwtdecodeauth.enabled
+version: 1.0.4
+appVersion: "5.2.10.0"
 home: https://www.tmaxcloud.com/#!/home
 sources:
   - https://github.com/tmax-cloud/console

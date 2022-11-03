@@ -28,8 +28,8 @@ dependencies:
   - name: cert-manager
     version: v1.5.4
     repository: file://charts/cert-manager
-    alias: certmanager
-    condition: certmanager.enabled
+    alias: cert-manager
+    condition: cert-manager.enabled
 
 #  - name: cert-manager
 #    version: v1.5.4

@@ -20,7 +20,11 @@ spec:
       {{- end }}
       priority: 10
       middlewares:
+      {{- if .Values.oauth2proxy.enabled }}
         - name: {{ .Release.Namespace }}-{{ .Values.oauth2proxy.fullnameOverride }}-forwardauth@kubernetescrd
+      {{- else }}
+        - name: api-gateway-system-oauth2-proxy-forwardauth@kubernetescrd # Use Defalt oauth2-porxy
+      {{- end }}
       services:
         - name: {{ .Values.console.fullnameOverride }}
           namespace: {{ .Release.Namespace }}
@@ -33,14 +37,26 @@ spec:
       match: PathPrefix(`/oauth2/`)
       {{- end }}
       middlewares:
+{{- if .Values.oauth2proxy.enabled }}
         - name: {{ .Release.Namespace }}-{{ .Values.oauth2proxy.fullnameOverride }}-headers@kubernetescrd
+{{- else }}
+        - name: api-gateway-system-oauth2-proxy-headers@kubernetescrd
+{{- end }}
       priority: 80
       services:
+{{- if . Values.oauth2proxy.enabled }}
         - kind: Service
           name: {{ .Values.oauth2proxy.fullnameOverride }}
           namespace: {{ .Release.Namespace }}
           port: 80
           scheme: http
+{{- else }}
+        - kind: Service
+          name: oauth2-proxy
+          namespace: api-gateway-system
+          port: 80
+          scheme: http
+{{- end }}
     - kind: Rule
       {{- if .Values.global.domain }}
       match: PathPrefix(`/api/hypercloud`, `/api/multi-hypercloud`,`/api/webhook`) && Host(`{{ .Values.global.consoleDomain }}.{{ .Values.global.domain }}`)
@@ -49,7 +65,11 @@ spec:
       {{- end }}
       priority: 100
       middlewares:
+      {{- if .Values.oauth2proxy.enabled }}
         - name: {{ .Release.Namespace }}-{{ .Values.oauth2proxy.fullnameOverride }}-forwardauth@kubernetescrd
+      {{- else }}
+        - name: api-gateway-system-oauth2-proxy-forwardauth@kubernetescrd # Use Defalt oauth2-porxy
+      {{- end }}
         - name: hypercloud-stripprefix@file
       services:
         - kind: Service
@@ -66,7 +86,11 @@ spec:
       {{- end }}
       priority: 100
       middlewares:
+      {{- if .Values.oauth2proxy.enabled }}
         - name: {{ .Release.Namespace }}-{{ .Values.oauth2proxy.fullnameOverride }}-forwardauth@kubernetescrd
+      {{- else }}
+        - name: api-gateway-system-oauth2-proxy-forwardauth@kubernetescrd # Use Defalt oauth2-porxy
+      {{- end }}
         - name: kubernetes-stripprefix@file
       services:
         - kind: Service
@@ -83,7 +107,11 @@ spec:
       {{- end }}
       priority: 100
       middlewares:
+      {{- if .Values.oauth2proxy.enabled }}
         - name: {{ .Release.Namespace }}-{{ .Values.oauth2proxy.fullnameOverride }}-forwardauth@kubernetescrd
+      {{- else }}
+        - name: api-gateway-system-oauth2-proxy-forwardauth@kubernetescrd # Use Defalt oauth2-porxy
+      {{- end }}
         - name: monitoring-stripprefix-tenancy@file
       services:
         - kind: Service
@@ -99,7 +127,11 @@ spec:
       {{- end }}
       priority: 100
       middlewares:
+      {{- if .Values.oauth2proxy.enabled }}
         - name: {{ .Release.Namespace }}-{{ .Values.oauth2proxy.fullnameOverride }}-forwardauth@kubernetescrd
+      {{- else }}
+        - name: api-gateway-system-oauth2-proxy-forwardauth@kubernetescrd # Use Defalt oauth2-porxy
+      {{- end }}
         - name: monitoring-stripprefix@file
       services:
         - kind: Service
@@ -115,7 +147,11 @@ spec:
       {{- end }}
       priority: 100
       middlewares:
+      {{- if .Values.oauth2proxy.enabled }}
         - name: {{ .Release.Namespace }}-{{ .Values.oauth2proxy.fullnameOverride }}-forwardauth@kubernetescrd
+      {{- else }}
+        - name: api-gateway-system-oauth2-proxy-forwardauth@kubernetescrd # Use Defalt oauth2-porxy
+      {{- end }}
         - name: monitoring-stripprefix@file
       services:
         - kind: Service

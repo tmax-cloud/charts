@@ -13,7 +13,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`{{ include "oauth2-proxy.fullname" . }}.{{.Values.global.domain }}`) && PathPrefix(`/`)
+      match: Host(`{{ include "oauth2-proxy.fullname" . }}.{{.Values.domain }}`) && PathPrefix(`/`)
       middlewares:
         - name: {{.Release.Namespace}}-{{ include "oauth2-proxy.fullname" . }}-headers@kubernetescrd
       services:
@@ -27,6 +27,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   labels:
+    oauth2-proxy-header: ""
     app: {{ template "oauth2-proxy.name" . }}
 {{- include "oauth2-proxy.labels" . | indent 4 }}
   name: {{ template "oauth2-proxy.fullname" . }}-headers
@@ -45,13 +46,13 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   labels:
+    oauth2-proxy-forwardauth: ""
     app: {{ template "oauth2-proxy.name" . }}
 {{- include "oauth2-proxy.labels" . | indent 4 }}
   name: {{ template "oauth2-proxy.fullname" . }}-forwardauth
 spec:
   forwardAuth:
     address: http://{{ include "oauth2-proxy.fullname" . }}.{{ .Release.Namespace }}.svc/
-    #address: https://{{ include "oauth2-proxy.fullname" . }}.{{ .Values.global.domain }}/
     trustForwardHeader: true
     authResponseHeaders:
       - X-Auth-Request-Access-Token
