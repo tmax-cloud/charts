@@ -1,9 +1,0 @@
-dependencies:
-- name: cert-manager
-  repository: file://charts/cert-manager
-  version: v1.5.4
-- name: traefik
-  repository: file://charts/traefik
-  version: 10.24.0
-digest: sha256:9c21aa94670206caa8775d43aceeeffff84a4e0b8d4d6806a356bd81c32ec013
-generated: "2022-08-31T19:11:33.225776+09:00"

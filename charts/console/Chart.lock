@@ -1,9 +1,0 @@
-dependencies:
-- name: oauth2-proxy
-  repository: file://charts/oauth2-proxy
-  version: 6.2.2
-- name: jwt-decode-auth
-  repository: file://charts/jwt-decode-auth
-  version: 1.0.0
-digest: sha256:4924e292bd9b0dba4dd335f2f9e424a6a4d337c4396ea3a7264c4228f4cc7488
-generated: "2022-09-14T11:28:06.174037+09:00"
