@@ -1,4 +1,4 @@
-# Installation Guide for Master Cluster
+# Installation Guide for Gateway
 ## Prerequisites
 - Helm v3 [Installed](https://helm.sh/docs/intro/install/)
 Add tmax-cloud's chart repository to Helm:
