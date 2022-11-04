@@ -1,4 +1,4 @@
-{{- if regexMatch "5.2.1[0-9]+.[0-9]*" .Values.image.tag }}
+{{- if regexMatch "5.2.1[1-9]+.[0-9]*" .Values.image.tag }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -26,6 +26,15 @@ spec:
       {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: init-check-middleware
+          image: busybox:1.28
+          # Wait 30 seconds for a middleware service
+          {{- if regexMatch "5.[2-9].[0-9]*.[0-9]*" (.Values.image.tag | default "5.2.10.0") }}
+          command: ['sh', '-c', 'for i in {1..10}; do sleep 3; if nslookup oauth2-proxy.api-gateway-system.svc; then exit 0; fi; done; exit 1']
+          {{- else }}
+          command: ['sh', '-c', 'for i in {1..10}; do sleep 3; if nslookup jwt-decode-auth.api-gateway-system.svc; then exit 0; fi; done; exit 1']
+          {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           command:
@@ -64,7 +73,7 @@ spec:
             - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
               name: console-token
               readOnly: true
-            {{- if ne .Values.global.timeZone "UTC" }}
+            {{- if ne .Values.timeZone "UTC" }}
             - mountPath: /etc/localtime
               name: timezone-config
             {{- end }}
@@ -86,7 +95,7 @@ spec:
         - name: console-token
           secret:
             defaultMode: 420
-            secretName: {{ template "console.serviceAccountName"}}
+            secretName: {{ template "console.serviceAccountName" . }}
         {{- if ne .Values.timeZone "UTC" }}
         - name: timezone-config
           hostPath:
@@ -121,6 +130,15 @@ spec:
       {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: init-check-middleware
+          image: busybox:1.28
+          # Wait 30 seconds for a middleware service
+          {{- if regexMatch "5.[2-9].[0-9]*.[0-9]*" (.Values.image.tag | default "5.2.10.0") }}
+          command: ['sh', '-c', 'for i in {1..10}; do sleep 3; if nslookup oauth2-proxy.api-gateway-system.svc; then exit 0; fi; done; exit 1']
+          {{- else }}
+          command: ['sh', '-c', 'for i in {1..10}; do sleep 3; if nslookup jwt-decode-auth.api-gateway-system.svc; then exit 0; fi; done; exit 1']
+          {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           command:
