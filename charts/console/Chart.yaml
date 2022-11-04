@@ -3,7 +3,7 @@ name: console
 description: A console
 type: application
 version: "1.0.5"
-appVersion: "5.2.10.0"
+appVersion: "5.2.11.0"
 home: https://www.tmaxcloud.com/#!/home
 sources:
   - https://github.com/tmax-cloud/console
