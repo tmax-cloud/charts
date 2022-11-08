@@ -48,10 +48,12 @@ The following table lists the configurable parameters of the oauth2-proxy chart 
 | `tls.acme.dns.hostedZoneID`    | route53 hostedZoneID                                                                       | `"hostZoneID"`      |
 | `tls.acme.environment`         | "staging" for dev testing, "production" for production                                     | `"staging"`         | 
 | `tls.selfsigned`               | selgsigned TLS certification                                                               | `true`              |
-| `certmanager.enabled`          | Flag to install cert-manager                                                               | `true`              |
+| `dashboard.enabled`            | enabled traefik dashboard                                                                  | `true`              |
+| `dashboard.id`                 | login id of traefik dashboard (if using, should be set both id and password)               | `""`                |
+| `dashboard.password`           | login password of traefik dashboard                                                        | `""`                |
 | `traefik.enabled`              | Flag to install traefik                                                                    | `true`              |
 | `traefik.image.name`           | image name                                                                                 | `"traefik"`         |
-| `traefik.image.tag`            | image tag                                                                                  | `"v2.8.0"`          |
+| `traefik.image.tag`            | image tag                                                                                  | `"v2.8.7"`          |
 | `traefik.service.type`         | service type                                                                               | `"LoadBalacer"`     |                                |
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
