@@ -1,5 +1,22 @@
 apiVersion: v1
 entries:
+  cert-manager:
+  - apiVersion: v2
+    appVersion: v1.5.4
+    created: "2022-11-08T03:20:00.252311879Z"
+    dependencies:
+    - alias: cert-manager
+      condition: cert-manager.enabled
+      name: cert-manager
+      repository: file://charts/cert-manager
+      version: v1.5.4
+    description: A Helm chart for Kubernetes
+    digest: a1abc341de9ee171d449f1dd70c66e88806463c6d6ccd42081de95bea858137d
+    name: cert-manager
+    type: application
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/cert-manager-1.0.0/cert-manager-1.0.0.tgz
+    version: 1.0.0
   console:
   - apiVersion: v2
     appVersion: 5.2.11.0
@@ -232,4 +249,4 @@ entries:
     urls:
     - https://github.com/tmax-cloud/charts/releases/download/oauth2-proxy-1.0.0/oauth2-proxy-1.0.0.tgz
     version: 1.0.0
-generated: "2022-11-04T04:05:34.924227616Z"
+generated: "2022-11-08T03:20:00.252363379Z"
