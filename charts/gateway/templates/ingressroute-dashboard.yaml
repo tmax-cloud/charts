@@ -1,18 +1,12 @@
-{{- if .Values.traefik.ingressRoute.dashboard.enabled -}}
+{{- if .Values.dashboard.enabled -}}
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: {{ template "traefik.fullname" . }}-dashboard
   annotations:
     helm.sh/hook: "post-install,post-upgrade"
-    {{- with .Values.traefik.ingressRoute.dashboard.annotations }}
-    {{- toYaml . | nindent 4 }}
-    {{- end }}
   labels:
     {{- include "gateway.labels" . | nindent 4 }}
-    {{- with .Values.traefik.ingressRoute.dashboard.labels }}
-    {{- toYaml . | nindent 4 }}
-    {{- end }}
 spec:
   entryPoints:
     - traefik
@@ -22,7 +16,7 @@ spec:
   {{- else }}
   - match: PathPrefix(`/dashboard`) || PathPrefix(`/api`) || PathPrefix(`/`)
   {{- end }}
-    {{- if and .Values.traefik.ingressRoute.dashboard.id .Values.traefik.ingressRoute.dashboard.password }}
+    {{- if and .Values.dashboard.id .Values.dashboard.password }}
     middlewares:
     - name: {{ .Release.Namespace}}-dashboard-auth@kubernetescrd
     {{- end }}
@@ -34,7 +28,7 @@ spec:
 
 {{- end -}}
 
-{{- if and .Values.traefik.ingressRoute.dashboard.id .Values.traefik.ingressRoute.dashboard.password }}
+{{- if and .Values.dashboard.id .Values.dashboard.password }}
 ---
 # Declaring the user list
 apiVersion: traefik.containo.us/v1alpha1
@@ -43,14 +37,8 @@ metadata:
   name: dashboard-auth
   annotations:
     helm.sh/hook: "post-install,post-upgrade"
-    {{- with .Values.traefik.ingressRoute.dashboard.annotations }}
-    {{- toYaml . | nindent 4 }}
-    {{- end }}
   labels:
     {{- include "gateway.labels" . | nindent 4 }}
-    {{- with .Values.traefik.ingressRoute.dashboard.labels }}
-    {{- toYaml . | nindent 4 }}
-    {{- end }}
 spec:
   basicAuth:
     secret: authsecret
@@ -64,16 +52,10 @@ metadata:
   name: authsecret
   annotations:
     helm.sh/hook: "post-install,post-upgrade"
-    {{- with .Values.traefik.ingressRoute.dashboard.annotations }}
-    {{- toYaml . | nindent 4 }}
-    {{- end }}
   labels:
     {{- include "gateway.labels" . | nindent 4 }}
-    {{- with .Values.traefik.ingressRoute.dashboard.labels }}
-    {{- toYaml . | nindent 4 }}
-    {{- end }}
 type: kubernetes.io/basic-auth
 data:
-  username: {{ .Values.traefik.ingressRoute.dashboard.id | b64enc }}
-  password: {{ .Values.traefik.ingressRoute.dashboard.password | b64enc }}
+  username: {{ .Values.dashboard.id | b64enc }}
+  password: {{ .Values.dashboard.password | b64enc }}
 {{- end }}

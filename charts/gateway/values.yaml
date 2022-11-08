@@ -12,6 +12,13 @@ tls:
     environment: staging
   selfsigned:
     enabled: false
+  # Create an IngressRoute for the dashboard
+dashboard:
+  enabled: true
+  # optional: dashboard login id
+  id: ""
+  # optional: dashboard login password
+  password: ""
 
 traefik:
   enabled: true
@@ -41,16 +48,4 @@ traefik:
   tolerations:
     - key: "node-role.kubernetes.io/master"
       operator: Exists
-  # Create an IngressRoute for the dashboard
-  ingressRoute:
-    dashboard:
-      enabled: true
-      # Additional ingressRoute annotations (e.g. for kubernetes.io/ingress.class)
-      annotations: {}
-      # Additional ingressRoute labels (e.g. for filtering IngressRoute by custom labels)
-      labels: {}
-      # optional: dashboard login id
-      id: ""
-      # optional: dashboard login password
-      password: ""
 
