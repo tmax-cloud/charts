@@ -57,6 +57,10 @@ modules:
       enabled: true
     traefik:
       enabled: true
+    jwt-decode-auth:
+      enabled: false
+    oauth2-proxy:
+      enabled: false
     console:
       enabled: true
 

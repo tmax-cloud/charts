@@ -1,41 +1,60 @@
-# HyperCloud API-GATEWAY
+<!--- app-name: Gateway -->
 
-HyperCloud API-GATEWAY 설치 가이드  
+# Gateway 설치 가이드
+- [개요](#개요)
+- [사전 조건](#사전-조건-(Prerequisites))
+- [요약](#요약-(TL;DR))
+- [차트 설치](#차트-설치)
+- [차트 삭제](#차트-삭제)
+- [변수 목록](#변수-목록-(Parameters))
 
-## TL;DR;
+## 개요
+Hypercloud console에 사용되는 API Gateway입니다. 
 
-```console
-$ git clone https://github.com/tmax-cloud/charts.git
-$ cd gateway
+## 사전 조건 (Prerequisites)
+- 필수 설치
+    - [cert-manager](https://github.com/tmax-cloud/charts/tree/main/charts/cert-manager)
+
+## 요약 (TL;DR)
+```shell
+helm repo add tmax-cloud https://https://tmax-cloud.github.io/charts/
+helm repo update
+helm install gateway tmax-cloud/gateway --namespace api-gateway-system --create-namespace
 ```
 
-## Introduction
-
-This chart bootstraps a gateway deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
-
-## Installing the Chart
-
-To install the chart with the release name `gateway` on an api-gateway-system namespace:
-
-```console
-$ helm install gateway . --namespace api-gateway-system --create-namespace --wait
+## 차트 설치
+```shell
+helm repo add tmax-cloud https://https://tmax-cloud.github.io/charts/
+helm repo update
+helm install gateway tmax-cloud/gateway --namespace api-gateway-system --create-namespace
+```
+> **Tip**: 설치된 차트들 확인 `helm list -A`
+### values.yaml 로 파라미터 설정하기
+1. 차트 설치 시 values.yaml의 값을 사용하여 원하는 설정을 할 수 있습니다.
+```shell
+# 최신 차트의 values.yaml 가져오기: 
+helm show values tmax-cloud/gateway > values.yaml
+# 특정 버전(예, v1.0.3) 차트의 values.yaml 가져오기: 
+helm show values tmax-cloud/gateway --version v1.1.3 > values.yaml
+```
+2. 에디터(vi 등)로 필요한 parameters 설정하고 저장합니다.
+3. 파라미터가 설정된 values.yaml 파일로 차트를 설치합니다.
+```shell
+helm install gateway tmax-cloud/gateway --values values.yaml --namespace api-gateway-system --create-namespace
 ```
 
-The [configuration](#configuration) section lists the parameters that can be configured during installation.
-
-## Uninstalling the Chart
-
-To uninstall/delete the `gateway` deployment:
-
-```console
-$ helm uninstall -n api-gateway-system gateway
+### (필요 시) yaml 파일을 통한 설치
+```shell
+helm template gateway tmax-cloud/gateway --values values.yaml --namespace api-gateway-system > gateway-template.yaml
+kubectl apply -f gateway-template.yaml
 ```
 
-The command removes all the Kubernetes components associated with the chart and deletes the release.
+## 차트 삭제
+```shell
+helm uninstall gateway -n api-gateway-system
+```
 
-## Configuration
-
-The following table lists the configurable parameters of the oauth2-proxy chart and their default values.
+## 변수 목록 (Parameters)
 
 | Parameter                      | Description                                                                                | Default             |
 |--------------------------------|--------------------------------------------------------------------------------------------|---------------------|
