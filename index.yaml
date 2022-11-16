@@ -209,6 +209,21 @@ entries:
   gateway:
   - apiVersion: v2
     appVersion: v2.8.7
+    created: "2022-11-16T23:26:27.05189732Z"
+    dependencies:
+    - condition: traefik.enabled
+      name: traefik
+      repository: file://charts/traefik
+      version: 10.24.0
+    description: A Helm chart for Kubernetes
+    digest: f83ae9a025750b0864834fdb198ad85db7b8c5b5840ce1278d563bd81204c380
+    name: gateway
+    type: application
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/gateway-1.2.0/gateway-1.2.0.tgz
+    version: 1.2.0
+  - apiVersion: v2
+    appVersion: v2.8.7
     created: "2022-11-16T23:01:41.372019634Z"
     dependencies:
     - condition: traefik.enabled
@@ -374,4 +389,4 @@ entries:
     urls:
     - https://github.com/tmax-cloud/charts/releases/download/oauth2-proxy-1.0.0/oauth2-proxy-1.0.0.tgz
     version: 1.0.0
-generated: "2022-11-16T23:01:41.372069734Z"
+generated: "2022-11-16T23:26:27.052254525Z"
