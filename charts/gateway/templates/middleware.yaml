@@ -2,6 +2,8 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: cors-header
+  labels:
+    {{- include "gateway.labels" . | nindent 4 }}
 spec:
   headers:
     accessControlAllowMethods: [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ]
@@ -22,6 +24,8 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: hypercloud-stripprefix
+  labels:
+    {{- include "gateway.labels" . | nindent 4 }}
 spec:
   stripPrefix:
     prefixes:
@@ -34,6 +38,8 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: kubernetes-stripprefix
+  labels:
+    {{- include "gateway.labels" . | nindent 4 }}
 spec:
   stripPrefix:
     prefixes:
@@ -45,6 +51,8 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: monitoring-stripprefix
+  labels:
+    {{- include "gateway.labels" . | nindent 4 }}
 spec:
   stripPrefix:
     prefixes:
@@ -56,6 +64,8 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: monitoring-stripprefix-tenancy
+  labels:
+    {{- include "gateway.labels" . | nindent 4 }}
 spec:
   stripPrefix:
     prefixes:
