@@ -8,7 +8,7 @@ spec:
   headers:
     accessControlAllowMethods: [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ]
     ## https://github.com/traefik/traefik/issues/8961
-    accessControlAllowHeaders: [ "Accept", "Authorization", "Content-Type", "Locatee-Smart-Signage-Token", "Origin" ]
+    accessControlAllowHeaders: [ "Accept", "Authorization", "Content-Type", "Origin" ]
     # accessControlAllowOriginList:
     #   - "https://console.{{ .Values.tls.domain }}"
     accessControlAllowOriginListRegex:
