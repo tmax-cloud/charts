@@ -52,7 +52,7 @@ spec:
             - --svc-type={{ .svcType | default "LoadBalancer" }}
             - --log-level={{ .logLevel | default "debug" }}
             - --log-type={{ .logType | default "pretty" }}
-            - --k8s-public-endpoint={{ .k8sPublicEndpoint }}
+            - --k8s-public-endpoint={{ .k8sPublicEndpoint | default "https://kubernetes.default.svc" }}
             {{- end }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}

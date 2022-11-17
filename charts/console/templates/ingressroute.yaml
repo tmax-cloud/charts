@@ -55,7 +55,7 @@ spec:
           namespace: hypercloud5-system
           port: https
           scheme: https
-          serversTransport: insecure@kubernetescrd
+          serversTransport: api-gateway-system-insecure@kubernetescrd
     - kind: Rule
       {{- if .Values.domain }}
       match: PathPrefix(`/api/kubernetes`) && Host(`{{ .Values.subDomain }}.{{ .Values.domain }}`)
@@ -72,7 +72,7 @@ spec:
           namespace: default
           port: https
           scheme: https
-          serversTransport: kubernetes@kubernetescrd
+          serversTransport: api-gateway-system-kubernetes@kubernetescrd
     - kind: Rule
       {{- if .Values.domain }}
       match: PathPrefix(`/api/prometheus-tenancy/api`) && Host(`{{ .Values.subDomain }}.{{ .Values.domain }}`)
@@ -165,7 +165,7 @@ spec:
           namespace: hypercloud5-system
           port: https
           scheme: https
-          serversTransport: insecure@kubernetescrd
+          serversTransport: api-gateway-system-insecure@kubernetescrd
     - kind: Rule
       {{- if .Values.domain }}
       match: PathPrefix(`/api/kubernetes`) && Host(`{{ .Values.subDomain }}.{{ .Values.domain }}`)
@@ -182,7 +182,7 @@ spec:
           namespace: default
           port: https
           scheme: https
-          serversTransport: kubernetes@kubernetescrd
+          serversTransport: api-gateway-system-kubernetes@kubernetescrd
     - kind: Rule
       {{- if .Values.domain }}
       match: PathPrefix(`/api/prometheus-tenancy/api`) && Host(`{{ .Values.subDomain }}.{{ .Values.domain }}`)
