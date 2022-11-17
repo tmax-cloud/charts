@@ -57,7 +57,7 @@ traefik:
   enabled: true
   fullnameOverride: traefik
   additionalArguments:
-    - "--serverstransport.rootcas=/var/run/secrets/tmaxcloud/ca.crt, /var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+    - "--serverstransport.rootcas=/var/run/secrets/tmaxcloud/ca.crt"
     - "--entrypoints.websecure.http.middlewares=cors-header@file"
     - "--providers.file"
     - "--providers.file.directory=/gateway-config"

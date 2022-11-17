@@ -25,6 +25,10 @@ traefik:
   fullnameOverride: traefik
   additionalArguments:
     - "--entrypoints.websecure.http.middlewares=api-gateway-system-cors-header@kubernetescrd"
+    - "--providers.file"
+    - "--providers.file.directory=/gateway-config"
+    - "--providers.file.watch=true"
+    #- "--serverstransport.insecureskipverify" # Disable SSL certificate verification. (Default: false)
   image:
     name: traefik
     tag: "v2.8.7"
@@ -34,7 +38,13 @@ traefik:
     imagePullSecrets: []
     #  imagePullSecrets:
     #    - name: regcred
-  volumes: []
+  volumes:
+    - mountPath: /gateway-config
+      name: gateway-config
+      type: configMap
+    - mountPath: /var/run/secrets/tmaxcloud
+      name: selfsigned-ca
+      type: secret
   service:
     # LoadBalancer , NodePort, ClusterIP
     type: LoadBalancer

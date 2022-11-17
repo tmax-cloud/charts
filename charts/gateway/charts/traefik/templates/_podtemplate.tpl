@@ -205,6 +205,11 @@
           - "--providers.kubernetesingress.namespaces={{ template "providers.kubernetesIngress.namespaces" . }}"
           {{- end }}
           {{- end }}
+          {{- if .Values.files.enabled }}
+          - --providers.file
+          - --providers.file.directory=/gateway-config
+          - --providers.file.watch=true
+          {{- end }}
           {{- range $entrypoint, $config := $.Values.ports }}
           {{- if $config.redirectTo }}
           {{- $toPort := index $.Values.ports $config.redirectTo }}
