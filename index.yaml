@@ -241,6 +241,21 @@ entries:
   gateway:
   - apiVersion: v2
     appVersion: v2.8.7
+    created: "2022-11-24T00:35:25.123215776Z"
+    dependencies:
+    - condition: traefik.enabled
+      name: traefik
+      repository: file://charts/traefik
+      version: 10.24.0
+    description: A Helm chart for Kubernetes
+    digest: 01140158941a92f58cde0fdfef07efe522c0707480d012dfa13ef19c41405e48
+    name: gateway
+    type: application
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/gateway-1.3.2/gateway-1.3.2.tgz
+    version: 1.3.2
+  - apiVersion: v2
+    appVersion: v2.8.7
     created: "2022-11-17T05:57:06.805943598Z"
     dependencies:
     - condition: traefik.enabled
@@ -424,6 +439,28 @@ entries:
   oauth2-proxy:
   - apiVersion: v2
     appVersion: 7.3.0
+    created: "2022-11-24T00:35:25.394620769Z"
+    dependencies:
+    - alias: redis
+      condition: redis.enabled
+      name: redis
+      repository: file://charts/redis
+      version: 16.4.5
+    description: A reverse proxy that provides authentication with Hyperauth (keycloak)
+    digest: 8c3044e70f76b6aa1667347d407bf6d5a13c16af7cb8291fe094593f2ddfb795
+    home: https://tmax-cloud.github.io/charts/
+    kubeVersion: '>=1.9.0-0'
+    maintainers:
+    - email: jinsoo_youn@tmax.co.kr
+      name: jinsoo_youn
+    name: oauth2-proxy
+    sources:
+    - https://github.com/oauth2-proxy/oauth2-proxy
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/oauth2-proxy-1.0.2/oauth2-proxy-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
+    appVersion: 7.3.0
     created: "2022-11-10T05:18:44.975908965Z"
     dependencies:
     - alias: redis
@@ -466,4 +503,4 @@ entries:
     urls:
     - https://github.com/tmax-cloud/charts/releases/download/oauth2-proxy-1.0.0/oauth2-proxy-1.0.0.tgz
     version: 1.0.0
-generated: "2022-11-17T05:57:06.806048499Z"
+generated: "2022-11-24T00:35:25.394719769Z"
