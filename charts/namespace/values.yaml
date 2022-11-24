@@ -5,7 +5,7 @@
 # Declare variables to be passed into your templates.
 #specifies the quota to be used for resources
 
-namespace: ""
+namespace: "api-gateway-system"
 
 quota:
   enabled: false

@@ -34,6 +34,8 @@ Create chart name and version as used by the chart label.
 Common labels
 */}}
 {{- define "namespace.labels" -}}
+hypercloud: system
+name: {{ .Values.namespace }}
 helm.sh/chart: {{ include "namespace.chart" . }}
 {{ include "namespace.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
