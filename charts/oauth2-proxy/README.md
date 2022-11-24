@@ -7,6 +7,7 @@
 - [차트 설치](#차트-설치)
 - [차트 삭제](#차트-삭제)
 - [변수 목록](#변수-목록-(Parameters))
+- [추가 내용](#추가-내용)
 
 ## 개요
 tmax전용 Oauth2-proxy는 HyperAuth를 ID Provider로 사용하는 OIDC 인증 Client입니다. 
@@ -16,7 +17,7 @@ tmax전용 Oauth2-proxy는 HyperAuth를 ID Provider로 사용하는 OIDC 인증 
 - 필수 설치
     - [cert-manager](https://github.com/tmax-cloud/charts/tree/main/charts/cert-manager)
     - [gateway](https://github.com/tmax-cloud/charts/tree/main/charts/gateway)
-
+      - gateway chart 1.3.1 이상 사용을 권장
 ## 요약 (TL;DR)
 ```shell
 helm repo add tmax-cloud https://https://tmax-cloud.github.io/charts/
@@ -94,4 +95,18 @@ The following table lists the configurable parameters of the oauth2-proxy chart 
 | `metrics.servicemonitor.labels`                 | Add custom labels to the ServiceMonitor resource                                                                                                           | `{}`                                                     |
 | `extraObjects`                                  | Extra K8s manifests to deploy                                                                                                                              | `[]`                                                     |
 
-Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
+Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`
+
+## 추가 내용
+### self-signed 인증서 마운트 (optional)
+- 인증서가 self-signed 인 경우, 아래와 같이 인증서를 마운트해야 합니다.
+- 아래 값을 values.yaml에 추가합니다. 
+```yaml
+extraVolumes:
+  - name: ca-certificates
+    secret:
+      secretName: [self-signed 시크릿명]
+extraVolumeMounts:
+    - name: ca-certificates
+      mountPath: /etc/ssl/certs/
+```
