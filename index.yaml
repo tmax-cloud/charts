@@ -428,6 +428,16 @@ entries:
   namespace:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2022-11-24T05:32:09.834122877Z"
+    description: A Helm chart for Kubernetes
+    digest: 1f0289c5f0a71fd44500dc23ae352a1b416f8b15d430004c81d7cc0c76db6a31
+    name: namespace
+    type: application
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/namespace-1.0.1/namespace-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2022-09-15T03:58:01.849938722Z"
     description: A Helm chart for Kubernetes
     digest: 0313daa7343757a0110720ab328efbe196b57e80724dd361ec57348514765dda
@@ -503,4 +513,4 @@ entries:
     urls:
     - https://github.com/tmax-cloud/charts/releases/download/oauth2-proxy-1.0.0/oauth2-proxy-1.0.0.tgz
     version: 1.0.0
-generated: "2022-11-24T00:35:25.394719769Z"
+generated: "2022-11-24T05:32:09.83417998Z"
