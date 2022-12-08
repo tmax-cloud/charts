@@ -26,7 +26,7 @@ spec:
     server: {{ .Values.global.clusterName }}
   project: {{ .Values.spec.project }}
   source:
-    path: namespace
+    path: charts/namespace
     repoURL: {{ .Values.spec.source.repoURL }}
     targetRevision: {{ .Values.spec.source.targetRevision }}
     helm:
