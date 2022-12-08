@@ -63,10 +63,10 @@ spec:
         maxDuration: "3m0s"
   destination:
     name: {{ .Values.global.clusterName }}
-    namespace: api-gateway-system
+    namespace: cert-manager
   project: {{ .Values.spec.project }}
   source:
-    path: charts/gateway
+    path: charts/cert-manager
     repoURL: {{ .Values.spec.source.repoURL }}
     targetRevision: {{ .Values.spec.source.targetRevision }}
     helm:
