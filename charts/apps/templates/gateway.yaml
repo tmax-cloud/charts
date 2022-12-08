@@ -23,10 +23,10 @@ spec:
       selfHeal: true
       prune: true
   destination:
-    server: {{ .Values.global.clusterName }}
+    name: {{ .Values.global.clusterName }}
   project: {{ .Values.spec.project }}
   source:
-    path: namespace
+    path: charts/namespace
     repoURL: {{ .Values.spec.source.repoURL }}
     targetRevision: {{ .Values.spec.source.targetRevision }}
     helm:
@@ -62,7 +62,7 @@ spec:
         factor: 2
         maxDuration: "3m0s"
   destination:
-    server: {{ .Values.global.clusterName }}
+    name: {{ .Values.global.clusterName }}
     namespace: api-gateway-system
   project: {{ .Values.spec.project }}
   source:
