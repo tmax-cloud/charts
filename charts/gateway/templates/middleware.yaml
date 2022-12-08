@@ -11,8 +11,10 @@ spec:
     accessControlAllowHeaders: [ "Accept", "Authorization", "Content-Type", "Origin" ]
     # accessControlAllowOriginList:
     #   - "https://console.{{ .Values.tls.domain }}"
+{{- if .Values.tls.domain }}
     accessControlAllowOriginListRegex:
       - "([a-z]+)\\.{{ (split "." .Values.tls.domain)._0 }}\\.{{ (split "." .Values.tls.domain)._1 }}"
+{{- end }}
     accessControlMaxAge: 100
     addVaryHeader: true
     # Add for sending a request with credentials (cookie)

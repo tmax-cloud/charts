@@ -20,20 +20,21 @@ spec:
       labels:
         {{- include "jwt-decode-auth.selectorLabels" . | nindent 8 }}
     spec:
+      automountServiceAccountToken: false
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
-        - name: console-token
+        - name: jwt-token
           secret:
             defaultMode: 420
-            secretName: {{ .Values.global.serviceAccount }}
-{{- if .Values.global.timeZone }}
-{{- if not (eq .Values.global.timeZone "UTC") }}
+            secretName: {{ template "jwt-decode-auth.serviceAccountName" . }}
+{{- if .Values.timeZone }}
+{{- if not (eq .Values.timeZone "UTC") }}
         - name: timezone-config
           hostPath:
-            path: "/usr/share/zoneinfo/{{ .Values.global.timeZone }}"
+            path: "/usr/share/zoneinfo/{{ .Values.timeZone }}"
 {{- end }}
 {{- end }}
       securityContext:
@@ -46,11 +47,7 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           env:
             - name: JWKS_URL
-            {{- if .Values.global.hyperAuth }}
-              value: "https://{{ .Values.global.hyperAuth.address }}/auth/realms/{{ .Values.global.hyperAuth.realm }}/protocol/openid-connect/certs"
-            {{- else }}
-              value: "https://{{ .Values.hyperauth.address }}/auth/realms/{{ .Values.hyperAuth.realm }}/protocol/openid-connect/certs"
-            {{- end }}
+              value: "https://{{ .Values.hyperAuth.address }}/auth/realms/{{ .Values.hyperAuth.realm }}/protocol/openid-connect/certs"
             - name: AUTH_HEADER_KEY
               value: Authorization
             - name: CACHE_ENABLED
@@ -68,13 +65,13 @@ spec:
             - name: MULTI_CLUSTER_PREFIX
               value: multicluster
           volumeMounts:
-{{- if .Values.global.timeZone }}
-{{- if not (eq .Values.global.timeZone "UTC") }}
+{{- if .Values.timeZone }}
+{{- if not (eq .Values.timeZone "UTC") }}
             - mountPath: /etc/localtime
               name: timezone-config
 {{- end }}
 {{- end }}
-            - name: console-token
+            - name: jwt-token
               mountPath: /var/run/secrets/kubernetes.io/serviceaccount
               readOnly: true
           ports:

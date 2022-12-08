@@ -17,6 +17,8 @@ global:
   timeZone: UTC
 
 modules:
+  certManager:
+    enabled: true
   gatewayBootstrap:
     enabled: true
     # cloud provider의 load balancer 서비스(ex. aws nlb)를 사용하기 위해서는
@@ -48,13 +50,14 @@ modules:
       subDomain: console
       mcMode: true
       chatbotEmbed: true
+      customProductName: hypercloud
+      k8sPublicEndpoint: https://kubernetes.default.svc
+      svcType: LoadBalancer
       logInfo:
         logLevel: "debug"
         logType: "pretty"
       cookieSecret: ""
 
-    certManager:
-      enabled: true
     traefik:
       enabled: true
     jwt-decode-auth:

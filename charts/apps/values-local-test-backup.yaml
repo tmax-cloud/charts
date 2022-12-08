@@ -8,17 +8,15 @@ spec:
     targetRevision: HEAD
 
 global:
-  domain: "test.co.kr"
+  domain: "local.test"
   privateRegistry: ""
   adminUser: test@test.co.kr
   cluster: master
-  clusterName: in-cluster
+  clusterName: "https://kubernetes.default.svc"
   clusterNamespace: default
   timeZone: UTC
 
 modules:
-  certManager:
-    enabled: true
   gatewayBootstrap:
     enabled: true
     # cloud provider의 load balancer 서비스(ex. aws nlb)를 사용하기 위해서는
@@ -27,7 +25,7 @@ modules:
       type: NodePort
     tls:
       selfsigned:
-        enabled: false
+        enabled: true
       # acme로 할 경우, domain에 입력한 주소를 가지고 있어야함
       acme:
         enabled: false
@@ -45,25 +43,20 @@ modules:
       address: "hyperauth.tmaxcloud.org"
       realm: "tmax"
       clientID: "hypercloud5"
-      clientSecret: ""
+      clientSecret: "aasdfasdfdas"
     consoleInfo:
       subDomain: console
-      mcMode: true
-      chatbotEmbed: true
-      customProductName: hypercloud
-      k8sPublicEndpoint: https://kubernetes.default.svc
-      svcType: LoadBalancer
+      mcMode: false
+      chatbotEmbed: false
       logInfo:
         logLevel: "debug"
         logType: "pretty"
       cookieSecret: "Qj1gKJvgnPCCDFS9DJlkmtFwyMKlUaIDC7oE4jgA3kY="
 
+    certManager:
+      enabled: true
     traefik:
       enabled: true
-    jwt-decode-auth:
-      enabled: false
-    oauth2-proxy:
-      enabled: false
     console:
       enabled: true
 

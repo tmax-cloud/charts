@@ -1,7 +1,7 @@
 {{- if .Values.modules.gatewayBootstrap.console.enabled }}
 {{ $isMaster := eq .Values.global.cluster "master" }}
 {{ $prefix := printf "%s-%s" .Values.global.clusterNamespace .Values.global.clusterName }}
-{{ $module := "gateway-bootstrap-console" }}
+{{ $module := "jwt-decode-auth" }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -33,54 +33,32 @@ spec:
     namespace: api-gateway-system
   project: {{ .Values.spec.project }}
   source:
-    path: console
+    path: jwt-decode-auth
     repoURL: {{ .Values.spec.source.repoURL }}
     targetRevision: {{ .Values.spec.source.targetRevision }}
     helm:
-      releaseName: console
+      releaseName: jwt-decode-auth
       valueFiles:
         - values.yaml
       parameters:
-        - name: global.timeZone
+        - name: timeZone
           value: {{ .Values.global.timeZone | default "UTC" }}
-        - name: global.domain
-          value: {{ .Values.global.domain }}
-        - name: global.consoleDomain
-          value: {{ .Values.modules.gatewayBootstrap.consoleInfo.subDomain | default "console" }}
         {{- with .Values.modules.gatewayBootstrap.hyperAuthInfo }}
-        - name: global.hyperAuth.address
+        - name: hyperAuth.address
           value: {{ .address | default "hyperauth.org" }}
-        - name: global.hyperAuth.realm
+        - name: hyperAuth.realm
           value: {{ .realm | default "tmax" }}
-        - name: console.clientID
-          value: {{ .clientID | default "hypercloud5" }}
-        - name: oauth2-proxy.config.clientID
-          value: {{ .clientID | default "hypercloud5" }}
-        - name: oauth2-proxy.config.clientSecret
-          value: {{ .clientSecret | default "Qj1gKJvgnPCCDFS9DJlkmtFwyMKlUaIDC7oE4jgA3kY=" }}
         {{- end }}
         {{- with .Values.modules.gatewayBootstrap.consoleInfo }}
-        - name: console.mcMode
-          value: {{ .mcMode | quote | default "true" }}
-        - name: console.chatbotEmbed
-          value: {{ .chatbotEmbed | quote | default "true" }}
-        - name: console.logInfo.logType
+        - name: logInfo.logType
           value: {{ .logInfo.logType | default "pretty" }}
-        - name: console.logInfo.logLevel
+        - name: logInfo.logLevel
           value: {{ .logInfo.logLevel | default "debug" }}
-        - name: jwt-decode-auth.logInfo.logType
-          value: {{ .logInfo.logType | default "pretty" }}
-        - name: jwt-decode-auth.logInfo.logLevel
-          value: {{ .logInfo.logLevel | default "debug" }}
-        - name: oauth2-proxy.config.cookieSecret
-          value: {{ .cookieSecret | default "DVlYFBWPbb7JxehybnQ2VeRqDW5NBk8HNMi2eIMt3jg=" }}
         {{- end }}
         {{- if .Values.global.privateRegistry }}
         - name: image.repository
-          value: {{ .Values.global.privateRegistry }}/docker.io/tmaxcloudck/hypercloud-console
-        - name: oauth2-proxy.image.repository
-          value: {{ .Values.global.privateRegistry }}/docker.io/tmaxcloudck/oauth2-proxy
-        - name: jwt-decode-auth.image.repository
           value: {{ .Values.global.privateRegistry }}/docker.io/tmaxcloudck/jwt-decode
         {{- end }}
+        - name: image.tag
+          value: "5.0.0.3"
 {{- end }}

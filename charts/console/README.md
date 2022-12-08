@@ -51,7 +51,7 @@ helm install console tmax-cloud/console --namespace api-gateway-system --create-
 # 최신 차트의 values.yaml 가져오기: 
 helm show values tmax-cloud/console > values.yaml
 # 특정 버전(예, v1.0.3) 차트의 values.yaml 가져오기: 
-helm show values tmax-cloud/console --version v1.0.3 > values.yaml
+helm show values tmax-cloud/console --version 1.1.1 > values.yaml
 ```
 2. 에디터(vi 등)로 필요한 parameters 설정하고 저장합니다. 
 3. 파라미터가 설정된 values.yaml 파일로 차트를 설치합니다.

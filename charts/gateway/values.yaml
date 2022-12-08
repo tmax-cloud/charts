@@ -22,7 +22,7 @@ dashboard:
 
 traefik:
   enabled: true
-  fullnameOverride: traefik
+  fullnameOverride: gateway
   additionalArguments:
     - "--entrypoints.websecure.http.middlewares=api-gateway-system-cors-header@kubernetescrd"
     - "--providers.file"
@@ -46,7 +46,7 @@ traefik:
       name: selfsigned-ca
       type: secret
   service:
-    # LoadBalancer , NodePort, ClusterIP
+    # LoadBalancer , NodePort
     type: LoadBalancer
     # 우태건 실장님 요청으로 aws nlb annotation 추가
     annotations:

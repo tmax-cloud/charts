@@ -1,7 +1,40 @@
 {{- if .Values.modules.gatewayBootstrap.traefik.enabled }}
 {{ $isMaster := eq .Values.global.cluster "master" }}
 {{ $prefix := printf "%s-%s" .Values.global.clusterNamespace .Values.global.clusterName }}
-{{ $module := "gateway-bootstrap-gateway" }}
+{{ $module := "gateway" }}
+{{ $ns := "ns-gateway" }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  labels:
+    cluster: {{ ternary "master" $prefix $isMaster }}
+  {{- include "apps.labels" . | nindent 4 }}
+  name: {{ ternary $ns (printf "%s-%s" $prefix $ns) $isMaster }}
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-3"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+    automated:
+      selfHeal: true
+      prune: true
+  destination:
+    server: {{ .Values.global.clusterName }}
+  project: {{ .Values.spec.project }}
+  source:
+    path: namespace
+    repoURL: {{ .Values.spec.source.repoURL }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
+    helm:
+      releaseName: namespace
+      parameters:
+        - name: namespace
+          value: api-gateway-system
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -76,23 +109,5 @@ spec:
           value: TZ
         - name: traefik.env[0].value
           value: {{ .Values.global.timeZone }}
-      {{- end }}
-      {{- if .Values.modules.gatewayBootstrap.certManager.enabled }}
-        - name: certmanager.enabled
-          value: {{ .Values.modules.gatewayBootstrap.certManager.enabled | quote }}
-      {{- end }}
-      {{- if .Values.global.privateRegistry }}
-        - name: traefik.image.name
-          value: {{ .Values.global.privateRegistry }}/docker.io/library/traefik
-        {{- if .Values.modules.gatewayBootstrap.certManager.enabled }}
-        - name: certmanager.image.repository
-          value: "{{ .Values.global.privateRegistry }}/quay.io/jetstack/cert-manager-controller"
-        - name: certmanager.cainjector.image.repository
-          value: "{{ .Values.global.privateRegistry }}/quay.io/jetstack/cert-manager-cainjector"
-        - name: certmanager.webhook.image.repository
-          value: "{{ .Values.global.privateRegistry }}/quay.io/jetstack/cert-manager-webhook"
-        - name: certmanager.startupapicheck.image.repository
-          value: "{{ .Values.global.privateRegistry }}/quay.io/jetstack/cert-manager-ctl"
-        {{- end }}
       {{- end }}
 {{- end }}
