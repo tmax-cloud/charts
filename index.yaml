@@ -433,6 +433,16 @@ entries:
   jwt-decode-auth:
   - apiVersion: v2
     appVersion: 5.0.0.3
+    created: "2022-12-11T03:56:12.815548281Z"
+    description: A Helm chart for Kubernetes
+    digest: 78312ae2b376190245641b53c713e40580144cfcaf1b8dc44f4468c256459451
+    name: jwt-decode-auth
+    type: application
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/jwt-decode-auth-1.0.1/jwt-decode-auth-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    appVersion: 5.0.0.3
     created: "2022-09-19T01:08:03.036963545Z"
     description: A Helm chart for Kubernetes
     digest: 472f58fc59e26c24f1019844fc291d8e9018c0367643b49a6bfb944dd5d6ef96
@@ -529,4 +539,4 @@ entries:
     urls:
     - https://github.com/tmax-cloud/charts/releases/download/oauth2-proxy-1.0.0/oauth2-proxy-1.0.0.tgz
     version: 1.0.0
-generated: "2022-12-11T03:50:04.538368843Z"
+generated: "2022-12-11T03:56:12.815619482Z"
