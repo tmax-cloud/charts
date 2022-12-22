@@ -46,6 +46,22 @@ entries:
     version: 1.0.0
   console:
   - apiVersion: v2
+    appVersion: 5.2.20.0
+    created: "2022-12-22T06:46:23.75269137Z"
+    description: A console
+    digest: 98aff759492ea83af28e654f3afdb3153573899671707e4f357c742cacb9b313
+    home: https://www.tmaxcloud.com/#!/home
+    maintainers:
+    - email: jinsoo_youn@tmax.co.kr
+      name: jinsoo_youn
+    name: console
+    sources:
+    - https://github.com/tmax-cloud/console
+    type: application
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/console-1.1.3/console-1.1.3.tgz
+    version: 1.1.3
+  - apiVersion: v2
     appVersion: 5.2.12.0
     created: "2022-12-11T03:50:04.537942493Z"
     description: A console
@@ -539,4 +555,4 @@ entries:
     urls:
     - https://github.com/tmax-cloud/charts/releases/download/oauth2-proxy-1.0.0/oauth2-proxy-1.0.0.tgz
     version: 1.0.0
-generated: "2022-12-11T03:56:12.815619482Z"
+generated: "2022-12-22T06:46:23.752968871Z"
