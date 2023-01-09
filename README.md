@@ -12,6 +12,7 @@ helm repo add tmax-cloud https://tmax-cloud.github.io/charts/
 2) Install [Gateway](https://github.com/tmax-cloud/charts/blob/main/charts/gateway/README.md)
 3) Install [Oauth2-proxy](https://github.com/tmax-cloud/charts/blob/main/charts/oauth2-proxy/README.md)
 4) Install [Console](https://github.com/tmax-cloud/charts/blob/main/charts/console/README.md)
+5) Install [Gitea](https://github.com/tmax-cloud/charts/blob/main/charts/gitea/README.md)
 
 ## Repo List
 ### Available
@@ -21,6 +22,7 @@ helm repo add tmax-cloud https://tmax-cloud.github.io/charts/
 - oauth2-proxy
 - jwt-decode-auth
 - console
+- gitea
 
 ### Not yet
 - apps
