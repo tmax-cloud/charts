@@ -35,6 +35,8 @@ config:
   hyperAuth:
     address: hyperauth.tmaxcloud.org
     realm: tmax
+    # self-signed 인증서를 사용하는 oidc provider(hyperauth)에 대해선 true로 설정
+    insecureSkipVerify: true
   configFile:
 #  configFile: |-
 #    email_domains=[ "*" ]

@@ -69,6 +69,7 @@ spec:
           - --oidc-issuer-url=https://{{ .address }}/auth/realms/{{ .realm }}
         {{- end }}
           - --whitelist-domain={{ .Values.config.hyperAuth.address }},*.{{ .Values.domain }}
+          - --ssl-insecure-skip-verify={{ .Values.config.hyperAuth.insecureSkipVerify | default false }}
         {{- range $key, $value := .Values.extraArgs }}
           {{- if $value }}
           - --{{ $key }}={{ $value }}

@@ -35,6 +35,7 @@ config:
   hyperAuth:
     address: hyperauth.tmaxcloud.org
     realm: tmax
+    insecureSkipVerify: true
   configFile:
 #  configFile: |-
 #    email_domains=[ "*" ]
