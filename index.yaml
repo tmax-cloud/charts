@@ -617,6 +617,28 @@ entries:
     version: 1.0.0
   oauth2-proxy:
   - apiVersion: v2
+    appVersion: 7.3.1
+    created: "2023-01-18T05:03:07.347007981Z"
+    dependencies:
+    - alias: redis
+      condition: redis.enabled
+      name: redis
+      repository: file://charts/redis
+      version: 16.4.5
+    description: A reverse proxy that provides authentication with Hyperauth (keycloak)
+    digest: 908bd55b7111f6807ee53298ef5c32bc58bf096cdf6bed670c28e80c0f9c65df
+    home: https://tmax-cloud.github.io/charts/
+    kubeVersion: '>=1.9.0-0'
+    maintainers:
+    - email: jinsoo_youn@tmax.co.kr
+      name: jinsoo_youn
+    name: oauth2-proxy
+    sources:
+    - https://github.com/oauth2-proxy/oauth2-proxy
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/oauth2-proxy-1.0.6/oauth2-proxy-1.0.6.tgz
+    version: 1.0.6
+  - apiVersion: v2
     appVersion: 7.3.0
     created: "2023-01-17T02:26:34.96908806Z"
     dependencies:
@@ -748,4 +770,4 @@ entries:
     urls:
     - https://github.com/tmax-cloud/charts/releases/download/oauth2-proxy-1.0.0/oauth2-proxy-1.0.0.tgz
     version: 1.0.0
-generated: "2023-01-17T02:42:52.1024705Z"
+generated: "2023-01-18T05:03:07.347250592Z"
