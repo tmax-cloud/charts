@@ -11,6 +11,20 @@ entries:
     urls:
     - https://github.com/tmax-cloud/charts/releases/download/applications-1.0.0/applications-1.0.0.tgz
     version: 1.0.0
+  base:
+  - apiVersion: v2
+    appVersion: 1.13.9
+    created: "2023-01-19T02:06:30.052192643Z"
+    description: Helm chart for deploying Istio cluster resources and CRDs
+    digest: 926ec776f91db4fd5caa58263f64c6329ef25111bb0a42778df1a383108f3036
+    keywords:
+    - istio
+    name: base
+    sources:
+    - http://github.com/istio/istio
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/base-1.13.9/base-1.13.9.tgz
+    version: 1.13.9
   cert-manager:
   - apiVersion: v2
     appVersion: v1.5.4
@@ -288,6 +302,21 @@ entries:
     version: 1.0.0
   gateway:
   - apiVersion: v2
+    appVersion: 1.13.9
+    created: "2023-01-19T02:06:30.235233595Z"
+    description: Helm chart for deploying Istio gateways
+    digest: fa6eb42f2190272dc50a5bb7bab105a90fd40e22dc3a17d16616c4b9fb97a7b7
+    keywords:
+    - istio
+    - gateways
+    name: gateway
+    sources:
+    - http://github.com/istio/istio
+    type: application
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/gateway-1.13.9/gateway-1.13.9.tgz
+    version: 1.13.9
+  - apiVersion: v2
     appVersion: v2.8.7
     created: "2022-11-24T00:35:25.123215776Z"
     dependencies:
@@ -563,6 +592,22 @@ entries:
     urls:
     - https://github.com/tmax-cloud/charts/releases/download/gitea-6.0.3/gitea-6.0.3.tgz
     version: 6.0.3
+  istiod:
+  - apiVersion: v2
+    appVersion: 1.13.9
+    created: "2023-01-19T02:06:30.413311298Z"
+    description: Helm chart for istio control plane
+    digest: 5f74746eea258e20f1d7e093984faf88be620cda377f0b961489ff1dc7d5314e
+    keywords:
+    - istio
+    - istiod
+    - istio-discovery
+    name: istiod
+    sources:
+    - http://github.com/istio/istio
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/istiod-1.13.9/istiod-1.13.9.tgz
+    version: 1.13.9
   jwt-decode-auth:
   - apiVersion: v2
     appVersion: 5.0.0.3
@@ -770,4 +815,4 @@ entries:
     urls:
     - https://github.com/tmax-cloud/charts/releases/download/oauth2-proxy-1.0.0/oauth2-proxy-1.0.0.tgz
     version: 1.0.0
-generated: "2023-01-18T05:03:07.347250592Z"
+generated: "2023-01-19T02:06:30.413474609Z"
