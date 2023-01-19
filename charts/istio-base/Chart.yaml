@@ -3,7 +3,7 @@ appVersion: 1.13.9
 description: Helm chart for deploying Istio cluster resources and CRDs
 keywords:
 - istio
-name: base
+name: istio-base
 sources:
 - http://github.com/istio/istio
 version: 1.13.9
