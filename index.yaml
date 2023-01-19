@@ -592,6 +592,52 @@ entries:
     urls:
     - https://github.com/tmax-cloud/charts/releases/download/gitea-6.0.3/gitea-6.0.3.tgz
     version: 6.0.3
+  istio-base:
+  - apiVersion: v2
+    appVersion: 1.13.9
+    created: "2023-01-19T02:25:44.524272061Z"
+    description: Helm chart for deploying Istio cluster resources and CRDs
+    digest: f80d64b6beb9cf9a3c03f7474bc587c54c9cf685e1617a8cbade0baef4cdf9e7
+    keywords:
+    - istio
+    name: istio-base
+    sources:
+    - http://github.com/istio/istio
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/istio-base-1.13.9/istio-base-1.13.9.tgz
+    version: 1.13.9
+  istio-gateway:
+  - apiVersion: v2
+    appVersion: 1.13.9
+    created: "2023-01-19T02:25:44.732413043Z"
+    description: Helm chart for deploying Istio gateways
+    digest: b3efceffc785390f3d22f89353e0dfb630685a34d8c367368131e781deb42450
+    keywords:
+    - istio
+    - gateways
+    name: istio-gateway
+    sources:
+    - http://github.com/istio/istio
+    type: application
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/istio-gateway-1.13.9/istio-gateway-1.13.9.tgz
+    version: 1.13.9
+  istio-istiod:
+  - apiVersion: v2
+    appVersion: 1.13.9
+    created: "2023-01-19T02:25:44.949360832Z"
+    description: Helm chart for istio control plane
+    digest: 3e0f6628d2b198eb563625621c67e0b5d8989b212bb8e6828b17fb1e2e0a5fa9
+    keywords:
+    - istio
+    - istiod
+    - istio-discovery
+    name: istio-istiod
+    sources:
+    - http://github.com/istio/istio
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/istio-istiod-1.13.9/istio-istiod-1.13.9.tgz
+    version: 1.13.9
   istiod:
   - apiVersion: v2
     appVersion: 1.13.9
@@ -815,4 +861,4 @@ entries:
     urls:
     - https://github.com/tmax-cloud/charts/releases/download/oauth2-proxy-1.0.0/oauth2-proxy-1.0.0.tgz
     version: 1.0.0
-generated: "2023-01-19T02:06:30.413474609Z"
+generated: "2023-01-19T02:25:44.949515638Z"
