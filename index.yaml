@@ -12,6 +12,19 @@ entries:
     - https://github.com/tmax-cloud/charts/releases/download/applications-1.0.0/applications-1.0.0.tgz
     version: 1.0.0
   base:
+  - apiVersion: v1
+    appVersion: 1.15.4
+    created: "2023-01-26T00:12:54.656193799Z"
+    description: Helm chart for deploying Istio cluster resources and CRDs
+    digest: 11dce59a03cbbdef3a2b4f382574e9ccb54523aecc80fdaf07a72b85fdf1183c
+    keywords:
+    - istio
+    name: base
+    sources:
+    - http://github.com/istio/istio
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/base-1.15.4/base-1.15.4.tgz
+    version: 1.15.4
   - apiVersion: v2
     appVersion: 1.13.9
     created: "2023-01-19T02:06:30.052192643Z"
@@ -301,6 +314,21 @@ entries:
     - https://github.com/tmax-cloud/charts/releases/download/console-1.0.0/console-1.0.0.tgz
     version: 1.0.0
   gateway:
+  - apiVersion: v2
+    appVersion: 1.15.4
+    created: "2023-01-26T00:12:54.887437006Z"
+    description: Helm chart for deploying Istio gateways
+    digest: 6bc93feb4f92aff548f32d3b0ce1ef1af4573049acd23b7eae98c5e6e9d5ae43
+    keywords:
+    - istio
+    - gateways
+    name: gateway
+    sources:
+    - http://github.com/istio/istio
+    type: application
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/gateway-1.15.4/gateway-1.15.4.tgz
+    version: 1.15.4
   - apiVersion: v2
     appVersion: 1.13.9
     created: "2023-01-19T02:06:30.235233595Z"
@@ -639,6 +667,21 @@ entries:
     - https://github.com/tmax-cloud/charts/releases/download/istio-istiod-1.13.9/istio-istiod-1.13.9.tgz
     version: 1.13.9
   istiod:
+  - apiVersion: v1
+    appVersion: 1.15.4
+    created: "2023-01-26T00:12:55.087841518Z"
+    description: Helm chart for istio control plane
+    digest: ce78110c4b9ac715bf456656cb9cdec2a23ec6e3cb1fa2e3f985f3cccc352319
+    keywords:
+    - istio
+    - istiod
+    - istio-discovery
+    name: istiod
+    sources:
+    - http://github.com/istio/istio
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/istiod-1.15.4/istiod-1.15.4.tgz
+    version: 1.15.4
   - apiVersion: v2
     appVersion: 1.13.9
     created: "2023-01-19T02:06:30.413311298Z"
@@ -861,4 +904,4 @@ entries:
     urls:
     - https://github.com/tmax-cloud/charts/releases/download/oauth2-proxy-1.0.0/oauth2-proxy-1.0.0.tgz
     version: 1.0.0
-generated: "2023-01-19T02:25:44.949515638Z"
+generated: "2023-01-26T00:12:55.088068819Z"
