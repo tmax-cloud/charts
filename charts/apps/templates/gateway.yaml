@@ -72,6 +72,8 @@ spec:
     helm:
       releaseName: gateway
       parameters:
+        - name: cluster
+          value: {{ ternary "master" "single" $isMaster }}
         - name: traefik.service.type
           value: {{ .Values.modules.gatewayBootstrap.service.type | default "LoadBalancer" }}
       {{- with .Values.modules.gatewayBootstrap.tls }}
