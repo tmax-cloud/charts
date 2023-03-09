@@ -58,4 +58,11 @@ traefik:
   tolerations:
     - key: "node-role.kubernetes.io/master"
       operator: Exists
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "50Mi"
+    limits:
+      cpu: "300m"
+      memory: "150Mi"
 
