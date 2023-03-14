@@ -23,7 +23,7 @@ data:
             accessControlAllowMethods: [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ]
             ## https://github.com/traefik/traefik/issues/8961
             accessControlAllowHeaders: [ "Accept", "Authorization", "Content-Type", "Origin" ]
-{{- if eq .Values.cluster "master" }}
+{{- if eq .Values.global.cluster "master" }}
 {{- if .Values.tls.domain }}
             accessControlAllowOriginListRegex:
               - "([a-z]+)\\.{{ (split "." .Values.tls.domain)._0 }}\\.{{ (split "." .Values.tls.domain)._1 }}"
