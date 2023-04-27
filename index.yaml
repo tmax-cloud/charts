@@ -60,6 +60,22 @@ entries:
     version: 1.13.9
   cert-manager:
   - apiVersion: v2
+    appVersion: v1.10.1
+    created: "2023-04-27T07:29:24.374035113Z"
+    dependencies:
+    - alias: cert-manager
+      condition: cert-manager.enabled
+      name: cert-manager
+      repository: file://charts/cert-manager
+      version: v1.10.1
+    description: A Helm chart for Kubernetes
+    digest: b6d72ac30172cfa1c902d8658fe429dce2b4d281532788ebb50c0b0271c92c4c
+    name: cert-manager
+    type: application
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/cert-manager-1.0.3/cert-manager-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v2
     appVersion: v1.5.4
     created: "2023-03-09T04:04:54.496642955Z"
     dependencies:
@@ -796,6 +812,16 @@ entries:
     version: 1.13.9
   jwt-decode-auth:
   - apiVersion: v2
+    appVersion: 5.0.0.5
+    created: "2023-04-27T07:29:24.495693945Z"
+    description: A Helm chart for Kubernetes
+    digest: 46536a95f52898ba667e401fdef4596af1ef6d45e7846c067582506fa47c3950
+    name: jwt-decode-auth
+    type: application
+    urls:
+    - https://github.com/tmax-cloud/charts/releases/download/jwt-decode-auth-1.0.5/jwt-decode-auth-1.0.5.tgz
+    version: 1.0.5
+  - apiVersion: v2
     appVersion: 5.0.0.3
     created: "2023-03-09T04:04:54.901327088Z"
     description: A Helm chart for Kubernetes
@@ -1055,4 +1081,4 @@ entries:
     urls:
     - https://github.com/tmax-cloud/charts/releases/download/oauth2-proxy-1.0.0/oauth2-proxy-1.0.0.tgz
     version: 1.0.0
-generated: "2023-03-23T02:24:48.464911936Z"
+generated: "2023-04-27T07:29:24.495964849Z"
